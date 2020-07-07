@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col s6">
+        <ul class="tabs">
+            <li class="tab col s4"><a href="#plot1">Bmi</a></li>
+            <li class="tab col s3" style="display: none"><a href="#plot2">Dose/Day</a></li>
+            <li class="tab col s3" style="display: none"><a href="#plot3">Dose/2Week</a></li>
+            <li class="tab col s3" style="display: none"><a href="#plot4">Dose/Year</a></li>
+            <li class="tab col s4"><a href="#plot5">Ages</a></li>
+            <li class="tab col s4"><a href="#plot6">3D-Bmi</a></li>
+
+            <!--            class="active"-->
+        </ul>
+
+
+    </div>
+    <button class='dropdown-button btn drop-btn' data-target='dropdown1'>&nbsp &nbsp Dose<i class="material-icons">arrow_drop_down</i></button>
+</div>
+<div class="col s6" id="plot1">
+    <div class="row">
+
+        <div class="col l3 m3 s6">
+            <img class='plots' src='data:image/png;base64,{{data4}}' alt='' height='400'
+                 ,width='400'>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col l3 m3 s6">
+            <img class='plots' src='data:image/png;base64,{{data5}}' alt='' height='400'
+                 ,width='400'>
+        </div>
+    </div>
+      <div class="row">
+
+        <div class="col l3 m3 s6">
+            <img class='plots' src='data:image/png;base64,{{data7}}' alt='' height='400'
+                 ,width='400'>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="col l3 m3 s6" id="plot2" style="margin-top: -10px">
+    <div class="row">
+        <div class="col m12">
+            <img class='plots' src='data:image/png;base64,{{data2}}' alt='' height='400'
+                 ,width='400'>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+
+    <div class="col l3 m3 s6" style="margin-left: 280px" id="plot5">
+        <img class='plots' src='data:image/png;base64,{{data}}' alt='' height='400'
+             ,width='400'>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col s6" id="plot4" style="margin-top: -30px">
+        <img class='plots' src='data:image/png;base64,{{data1}}' alt='' height='400'
+             ,width='400'>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col l3 m3 s6" id="plot3" style="margin-top: -50px">
+        <img class='plots' src='data:image/png;base64,{{data3}}' alt='' height='400'
+             ,width='400'>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col l3 m3 s6" id="plot6" style="margin-top: -60px">
+        <img class='plots' src='data:image/png;base64,{{data6}}' alt='' height='400'
+             ,width='400'>
+    </div>
+</div>
+<ul id='dropdown1' class='dropdown-content'>
+    <li class="tab"><a class="dick" id="day">Day</a></li>
+    <li class="divider div-dropdown" tabindex="-1"></li>
+    <li class="tab"><a id="two_week">Two Week</a></li>
+    <li class="divider div-dropdown" tabindex="-1"></li>
+    <li class="tab"><a id="year">Year</a></li>
+</ul>
+<button class="myBtn" onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+
+
+{% endblock content %}
+
