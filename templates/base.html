@@ -1,336 +1,434 @@
 <!DOCTYPE html>
+{% if user.is_authenticated %}
 {% load static %}
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Hello</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+   <meta charset="UTF-8">
+   <title>HealthMed</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+   <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
 </head>
 <body>
 
 <nav class="main-nav #0277bd light-blue darken-3">
-    <div class="row right">
+   <div class="row right">
 
-            <form method="POST" action="/add-pat/"  style="margin: 0">{% csrf_token %}
-                <div class="col2 col s4 right">
-                    <button id="search_submit" type="submit" class="search-btn"><i class="search-icon material-icons" >search</i>
-                    </button>
-                </div>
-                    <div class="search-wrapper">
-                    <input type="text" class="search-bt" style="text-align:center" id="checkbox" name="checkbox" placeholder="Search by AMKA..." value="{{form.initial.id}}" onfocus="this.value=''" required>
-                    </div>
-            </form>
+           <form method="POST" action="/add-pat/"  style="margin: 0">{% csrf_token %}
+               <div class="col2 col s4 right">
+                   <button id="search_submit" type="submit" class="search-btn"><i class="search-icon material-icons" >search</i>
+                   </button>
+               </div>
+                   <div class="search-wrapper">
+                   <input type="text" class="search-bt" style="text-align:center" id="checkbox" name="checkbox" placeholder="Search by AMKA..." value="{{form.initial.id}}" onfocus="this.value=''" required>
+                   </div>
+           </form>
+       <div class="watch col s3" style="padding-right: 50px" title="{{clock}}">
+           <canvas id="canvas" width="70" height="68"
+style="background-color:#0277bd; margin-top:-2px">
+</canvas></div>
 
-    </div>
-    <div class="hamburger">
-       <button href="#" data-target="slide-out" class="menu-btn sidenav-trigger"><i class="material-icons">menu</i></button></div>
-        <a href="/" class="brand-logo" style="left:100px"><i class="material-icons">local_hospital</i>HealthMed</a>
+   </div>
+   <div class="hamburger">
+      <button href="#" data-target="slide-out" class="menu-btn sidenav-trigger"><i class="material-icons">menu</i></button></div>
+       <a href="/" class="brand-logo" style="left:100px"><i class="material-icons">local_hospital</i>HealthMed</a>
 </nav>
 <div id="main">
-    <ul id="slide-out" class="sidenav sidenav1 right">
-    <li><div class="user-view">
-      <a href="#user"><img class="circle" src="https://www.pngrepo.com/download/240405/secretary.png"></a>
-      <a href="#name"><span class="white-text name">Amanda Collins</span></a>
-      <a href="#email"><span class="white-text email">am_collins@gmail.com</span></a>
-    </div></li></br></br>
-         <li><a href="/add/" class="navbt"><i class="material-icons" >add</i>New Patient</a></li>
-        <li class="divider" tabindex="-1"></li>
-        <li><a href="/viewappoints/" class="navbt" ><i class="material-icons">date_range</i>View All Appointments</a></li>
-        <li class="divider" tabindex="-1"></li>
-        <li><a href="/view/" class="navbt"><i class="material-icons">view_module</i>View All Patients</a></li>
-        <li class="divider" tabindex="-1"></li>
-        <li><a href="/plots/" class="navbt"><i class="material-icons">insert_chart</i>View Statistics</a></li>
-        <li class="divider" tabindex="-1"></li>
-       <li class="schd-app"><i class="schedule-icon material-icons">schedule</i> Schedule Appointment</li>
-        </br>  </br>  </br>  </br>  <div ><li class="divider" tabindex="-1"></li></div>
+   <ul id="slide-out" class="sidenav sidenav1 right">
+   <li><div class="user-view">
+     <a href="#user"><img class="circle" src="https://www.pngrepo.com/download/240405/secretary.png"></a>
+     <a href="#name"><span class="white-text name">Amanda Collins</span></a>
+     <a href="#email"><span class="white-text email">am_collins@gmail.com</span></a>
+       <a href="/logout/" class="logout" style="color:#c62828 ; margin-left: 30px"><i class="material-icons" style="font-size: 17px">logout</i>&nbsp Logout</a>
+   </div></li></br>
+        <li><a href="/add/" class="navbt"><i class="material-icons" >add</i>New Patient</a></li>
+       <li class="divider" tabindex="-1"></li>
+       <li><a href="/viewappoints/" class="navbt" ><i class="material-icons">date_range</i>View All Appointments</a></li>
+       <li class="divider" tabindex="-1"></li>
+       <li><a href="/view/" class="navbt"><i class="material-icons">view_module</i>View All Patients</a></li>
+       <li class="divider" tabindex="-1"></li>
+       <li><a href="/plots/" class="navbt"><i class="material-icons">insert_chart</i>View Statistics</a></li>
+       <li class="divider" tabindex="-1"></li>
+      <li class="schd-app"><i class="schedule-icon material-icons">schedule</i> Schedule Appointment</li>
+       </br>  </br>  </br>  <div ><li class="divider" tabindex="-1"></li></div>
 
-           <form method="POST" action="/add-pat/">{% csrf_token %}
-            <div class="navgroup col s2 m2 l3 " >
+          <form method="POST" action="/add-pat/">{% csrf_token %}
+           <div class="navgroup col s2 m2 l3 " >
 
-          <input type="text" class="search_nav_input form-control " style="width: 100px" placeholder="Enter Amka..." name="checkbox" id="srch-term"  value="{{form.initial.id}}" onfocus="this.value=''" required>
-           <button class="nav-search-btn btn-default" type="submit"><i class="nav-search-icon material-icons">search</i></button>
-        </div>
-          </form>
+         <input type="text" class="search_nav_input form-control " style="width: 100px" placeholder="Enter Amka..." name="checkbox" id="srch-term"  value="{{form.initial.id}}" onfocus="this.value=''" required>
+          <button class="nav-search-btn btn-default" type="submit"><i class="nav-search-icon material-icons">search</i></button>
+       </div>
+         </form>
 
 
-    </ul></div>
+   </ul></div>
 
 <div class="slider">
-    <ul class="slides">
-        <li>
-            <img src="https://media.licdn.com/dms/image/C4D1BAQEBMz18kMaJ8g/company-background_10000/0?e=2159024400&v=beta&t=6y1IRlVzgboomrXAG4H7kKQw1m4NzVX0R2NcaMvbS1U"
-                 alt=""> <!-- random image -->
-            <div class="caption center-align">
-                <h3>A true devotion to healing</h3>
-                <h3 class="light grey-text text-lighten-3">Always Next to You!</h3>
-            </div>
-        </li>
-        <li>
-            <img src="https://www.hygeia.gr/wp-content/uploads/2018/11/%CE%9A%CE%B5%CE%BD%CF%84%CF%81%CE%B9%CE%BA%CE%B1%CC%81-%CE%95%CF%81%CE%B3%CE%B1%CF%83%CF%84%CE%B7%CC%81%CF%81%CE%B9%CE%B1-8-1-1920x700.jpg"
-                 alt=""> <!-- random image -->
-            <div class="caption left-align">
-                <h3>New Facilities</h3>
-                <h5 class="light grey-text text-lighten-3"></h5>
-            </div>
-        </li>
-        <li>
-            <img src="https://www.hygeia.gr/wp-content/uploads/2018/01/123-mri_slider.jpg" alt=""> <!-- random image -->
-            <div class="caption right-align">
-                <h3>Fast and efficient treatments</h3>
-                <h5 class="light grey-text text-lighten-3"></h5>
-            </div>
-        </li>
-        <li>
-            <img src="https://media.licdn.com/dms/image/C4D1BAQEDa78pDxO3Ag/company-background_10000/0?e=2159024400&v=beta&t=uHkqoipJOHbiuxCkCHwe0cviD2it_5vQAy6bP757dgw"
-                 alt=""> <!-- random image -->
-            <div class="caption right-align">
-                <h3>Define your future...</h3>
-                <h5 class="light grey-text text-lighten-3"></h5>
-            </div>
-        </li>
-    </ul>
+   <ul class="slides">
+       <li>
+           <img src="https://media.licdn.com/dms/image/C4D1BAQEBMz18kMaJ8g/company-background_10000/0?e=2159024400&v=beta&t=6y1IRlVzgboomrXAG4H7kKQw1m4NzVX0R2NcaMvbS1U"
+                alt=""> <!-- random image -->
+           <div class="caption center-align">
+               <h3>A true devotion to healing</h3>
+               <h3 class="light grey-text text-lighten-3">Always Next to You!</h3>
+           </div>
+       </li>
+       <li>
+           <img src="https://www.hygeia.gr/wp-content/uploads/2018/11/%CE%9A%CE%B5%CE%BD%CF%84%CF%81%CE%B9%CE%BA%CE%B1%CC%81-%CE%95%CF%81%CE%B3%CE%B1%CF%83%CF%84%CE%B7%CC%81%CF%81%CE%B9%CE%B1-8-1-1920x700.jpg"
+                alt=""> <!-- random image -->
+           <div class="caption left-align">
+               <h3>New Facilities</h3>
+               <h5 class="light grey-text text-lighten-3"></h5>
+           </div>
+       </li>
+       <li>
+           <img src="https://www.hygeia.gr/wp-content/uploads/2018/01/123-mri_slider.jpg" alt=""> <!-- random image -->
+           <div class="caption right-align">
+               <h3>Fast and efficient treatments</h3>
+               <h5 class="light grey-text text-lighten-3"></h5>
+           </div>
+       </li>
+       <li>
+           <img src="https://media.licdn.com/dms/image/C4D1BAQEDa78pDxO3Ag/company-background_10000/0?e=2159024400&v=beta&t=uHkqoipJOHbiuxCkCHwe0cviD2it_5vQAy6bP757dgw"
+                alt=""> <!-- random image -->
+           <div class="caption right-align">
+               <h3>Define your future...</h3>
+               <h5 class="light grey-text text-lighten-3"></h5>
+           </div>
+       </li>
+   </ul>
 </div>
 
-
 <div class="container">
-    {% for message in messages %}
-    <div class="msg col s3 col m3 col l6">
-        <div class="messages">
-            <p {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</p>
-            <a href="#" class="del-msg"></a>
-        </div>
-    </div>
-    {% endfor %}
+   {% for message in messages %}
+   <div class="msg col s3 col m3 col l6">
+       <div class="messages">
+           <p {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</p>
+           <a href="#" class="del-msg"></a>
+       </div>
+   </div>
+   {% endfor %}
 
 </div>
 <div class="container">
 {% block content %}
-  <div class="row" style="margin-left: 50px">
-    <div class="col s4">
-      <div class="card">
+ <div class="row" style="margin-left: 50px">
+   <div class="col s4">
+     <div class="card">
 <!--          <div class="card-content">-->
-           </br><h5 align="center" style="padding-right: 4px"><i class="material-icons" style="font-size: 19px">insert_invitation &nbsp</i>Next Availability</h5></br>
-       <h6 class ="date-card" align="center">{{date}}</h6>
-        <div class="card-image card1">
-          <img src="{% static 'images/img1.png' %}">
-        </div>
-      </div>
-    </div>
-      <div class="col s4">
-      <div class="card">
+          </br><h5 align="center" style="padding-right: 4px"><i class="material-icons" style="font-size: 19px">insert_invitation &nbsp</i>Next Availability</h5></br>
+      <h6 class ="date-card" align="center">{{date}}</h6>
+       <div class="card-image card1">
+         <img src="{% static 'images/img1.png' %}">
+       </div>
+     </div>
+   </div>
+     <div class="col s4">
+     <div class="card">
 <!--          <div class="card-content">-->
-           </br><h5 align="center" style="margin-right: 10px"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ7diVQhhE59r-d1RQqQmohJ9yTTgVXzz1gyw&usqp=CAU" style="height:18px;width:18px" align="center">&nbsp Tomorrow's Dose</h5></br>
-       <h6 class ="date-card" align="center">{{dose|floatformat:3}} MBq</h6>
-        <div class="card-image card1">
-          <img src="{% static 'images/img2.png' %}">
-        </div>
-      </div>
-    </div><div class="col s4">
-      <div class="card">
+          </br><h5 align="center" style="margin-right: 10px"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ7diVQhhE59r-d1RQqQmohJ9yTTgVXzz1gyw&usqp=CAU" style="height:18px;width:18px" align="center">&nbsp Tomorrow's Dose</h5></br>
+      <h6 class ="date-card" align="center">{{dose|floatformat:3}} MBq</h6>
+       <div class="card-image card1">
+         <img src="{% static 'images/img2.png' %}">
+       </div>
+     </div>
+   </div><div class="col s4">
+     <div class="card">
 <!--          <div class="card-content">-->
-           </br><h5 align="center"><img src="https://image.flaticon.com/icons/png/512/343/343094.png" style="height:18px;width:18px" >&nbspCurrent year Avg Bmi</h5></br>
-       <h6 class ="date-card" align="center">{{avg_bmi|floatformat:3}}</h6>
-        <div class="card-image card1">
-          <img style="height:116px;width: 281px" src="{% static 'images/img5.png' %}">
-        </div>
-      </div>
-    </div>
-  </div>
+          </br><h5 align="center"><img src="https://image.flaticon.com/icons/png/512/343/343094.png" style="height:18px;width:18px" >&nbspCurrent year Avg Bmi</h5></br>
+      <h6 class ="date-card" align="center">{{avg_bmi|floatformat:3}}</h6>
+       <div class="card-image card1">
+         <img style="height:116px;width: 281px" src="{% static 'images/img5.png' %}">
+       </div>
+     </div>
+   </div>
+ </div>
 
 <div class="fixed-action-btn">
-  <a class="btn-floating btn-large yellow darken-1">
-   <img src="{% static 'images/download.png' %}" style="height:31px;width:31px;margin-top: 11px" >
-  </a>
-  <ul>
-    <li><a class="btn-floating red" href="/tomorrows_dose_pdf/"><i class="material-icons">insert_chart</i></a></li>
-    <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-    <li><a class="btn-floating green" href="/tomorrows_dose_csv/"><i class="material-icons">publish</i></a></li>
-    <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
-  </ul>
+ <a class="btn-floating btn-large yellow darken-1">
+  <img src="{% static 'images/download.png' %}" style="height:31px;width:31px;margin-top: 11px" >
+ </a>
+ <ul>
+   <li><a class="btn-floating red" title="Appointments {{prev_year}}.pdf" href="/last_year_pdf/"><img src="{% static 'images/pdf.png' %}" style="height:24px;width:45px;margin-top: 7px; margin-left:-3px " ></a></li>
+   <li><a class="btn-floating blue" title="Tomorrow's info.pdf" href="/tomorrows_dose_pdf/"><img src="{% static 'images/pdf.png' %}" style="height:24px;width:45px;margin-top: 7px; margin-left:-3px " ></a></li>
+   <li><a class="btn-floating yellow darken-2" title="Appointments {{prev_year}}.csv" href="/last_year_csv/" ><img src="{% static 'images/csv.png' %}" style="height:30px;width:25px;margin-top: 5px" ></a></li>
+   <li><a class="btn-floating green" title="Tomorrow's info.csv" href="/tomorrows_dose_csv/"><img src="{% static 'images/csv.png' %}" style="height:30px;width:25px;margin-top: 5px" ></a></li>
+ </ul>
 </div>
-    {% endblock content %}
-    </div>
+   {% endblock content %}
+   </div>
+{% else %}
+<head>
+ <meta http-equiv='refresh' content='0; URL=/login'>
+</head>
+<!--<p>Login <a href="/login">Here</a> </p>-->
+{% endif %}
 
 <script type="text/javascript" src="js/materialize.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">-->
 <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('.slider').slider();
-    });
+   $(document).ready(function () {
+       $('.slider').slider();
+   });
 </script>
-
-
 <!--collapsible sidebar-->
 <script> $(document).ready(function(){
-    $('.sidenav').sidenav();
-  });
+   $('.sidenav').sidenav();
+ });
 </script>
 
 <script>
-  $(document).ready(function(){
+ $(document).ready(function(){
 
-    $('.tabs').tabs();
+   $('.tabs').tabs();
 
 
 
-  });
+ });
 
 </script>
 
 <script>
 $(document).ready(function() {
-  $('ul.tabs').tabs();
-  $("#day").click(function() {
-    $('ul.tabs').tabs('select', 'plot2');
-  });
-  $("#two_week").click(function() {
-    $('ul.tabs').tabs('select', 'plot3');
-    });
-  $("#year").click(function() {
-    $('ul.tabs').tabs('select', 'plot4');
-    });
+ $('ul.tabs').tabs();
+ $("#day").click(function() {
+   $('ul.tabs').tabs('select', 'plot2');
+ });
+ $("#two_week").click(function() {
+   $('ul.tabs').tabs('select', 'plot3');
+   });
+ $("#year").click(function() {
+   $('ul.tabs').tabs('select', 'plot4');
+   });
 });
 </script>
 
 
 <!-- /* Add Scroll up button */ -->
 <script>
-    //Get the button:
-    mybutton = document.getElementById("myBtn");
+   //Get the button:
+   mybutton = document.getElementById("myBtn");
 
-    window.onscroll = function () {
-        scrollFunction()
-    };
+   window.onscroll = function () {
+       scrollFunction()
+   };
 // When the user scrolls down 20px from the top of the document, show the button
-    function scrollFunction() {
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            mybutton.style.display = "block";
-        } else {
-            mybutton.style.display = "none";
-        }
-    }
+   function scrollFunction() {
+       if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+           mybutton.style.display = "block";
+       } else {
+           mybutton.style.display = "none";
+       }
+   }
 
-    // When the user clicks on the button, scroll to the top of the document
-    function topFunction() {
-        document.body.scrollTop = 0; // For Safari
-        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    }
+   // When the user clicks on the button, scroll to the top of the document
+   function topFunction() {
+       document.body.scrollTop = 0; // For Safari
+       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+   }
 </script>
 
 
 <!--  toast messages fadout/timout code-->
 <script>
-    $(document).ready(function () {
-        // messages timeout for 10 sec
-        setTimeout(function () {
-            $('.messages').fadeOut('slow');
-        }, 5500); // <-- time in milliseconds, 1000 =  1 sec
+   $(document).ready(function () {
+       // messages timeout for 10 sec
+       setTimeout(function () {
+           $('.messages').fadeOut('slow');
+       }, 5500); // <-- time in milliseconds, 1000 =  1 sec
 
-        // delete message
-        $('.del-msg').live('click', function () {
-            $('.del-msg').parent().attr('style', 'display:none;');
-        })
-    });
+       // delete message
+       $('.del-msg').live('click', function () {
+           $('.del-msg').parent().attr('style', 'display:none;');
+       })
+   });
 </script>
 <!--calculations for bmi and weight in updateform and createnewform-->
 <script>
-    $(".input1").on('input', function () {
-        var w = document.getElementById("weight").value;
-        w = parseFloat(w);
-        var h = document.getElementById("height").value;
-        h = parseFloat(h);
-        var b = w / (h ** 2);
-         if( w >= 40 && w <=200 && h>=1.40 && h<=2.30) { //&& h>=1.40 && h<=2.30
-             document.getElementById('bmi').style.color = '';
-             document.getElementById("bmi").value = Math.round((b + Number.EPSILON) * 1000) / 1000;
-             document.getElementById("bmi1").value = Math.round((b + Number.EPSILON) * 1000) / 1000;//round correctly with no zeros when unnecessary
-             }
-         else if(w<40) {
-             document.getElementById("bmi").value="Weight must be greater or equal to 40 ";
-             document.getElementById("bmi").style.font= "13px arial ";
-             document.getElementById("bmi").style.color = "red";
-             }
-         else if(w>200){
-             document.getElementById("bmi").value="Weight must be less or equal to 200 ";
-             document.getElementById("bmi").style.font= " 13px arial";
-             document.getElementById("bmi").style.color = "red";
+   $(".input1").on('input', function () {
+       var w = document.getElementById("weight").value;
+       w = parseFloat(w);
+       var h = document.getElementById("height").value;
+       h = parseFloat(h);
+       var b = w / (h ** 2);
+        if( w >= 40 && w <=200 && h>=1.40 && h<=2.30) { //&& h>=1.40 && h<=2.30
+            document.getElementById('bmi').style.color = '';
+            document.getElementById("bmi").value = Math.round((b + Number.EPSILON) * 1000) / 1000;
+            document.getElementById("bmi1").value = Math.round((b + Number.EPSILON) * 1000) / 1000;//round correctly with no zeros when unnecessary
+            }
+        else if(w<40) {
+            document.getElementById("bmi").value="Weight must be greater or equal to 40 ";
+            document.getElementById("bmi").style.font= "13px arial ";
+            document.getElementById("bmi").style.color = "red";
+            }
+        else if(w>200){
+            document.getElementById("bmi").value="Weight must be less or equal to 200 ";
+            document.getElementById("bmi").style.font= " 13px arial";
+            document.getElementById("bmi").style.color = "red";
 
-         }
-         else if(h<1.40){
-             document.getElementById("bmi").value="Height must be greater or equal to 1.40 ";
-             document.getElementById("bmi").style.font= "13px arial ";
-             document.getElementById("bmi").style.color = "red";
+        }
+        else if(h<1.40){
+            document.getElementById("bmi").value="Height must be greater or equal to 1.40 ";
+            document.getElementById("bmi").style.font= "13px arial ";
+            document.getElementById("bmi").style.color = "red";
 
-         }
-         else if(h>2.30){
-             document.getElementById("bmi").value="Height must be less or equal to 2.30 ";
-             document.getElementById("bmi").style.font= " 13px arial";
-             document.getElementById("bmi").style.color = "red";
+        }
+        else if(h>2.30){
+            document.getElementById("bmi").value="Height must be less or equal to 2.30 ";
+            document.getElementById("bmi").style.font= " 13px arial";
+            document.getElementById("bmi").style.color = "red";
 
-         }
-         else{
-             document.getElementById("bmi").value="";
-         }
+        }
+        else{
+            document.getElementById("bmi").value="";
+        }
 
-         if (w>=40 && w<=200){
-              document.getElementById("dose").value=doseCalculation();
+        if (w>=40 && w<=200){
+             document.getElementById("dose").value=doseCalculation();
 
-         }
-         else{
-             document.getElementById("dose").value="";
-
-
-         }
+        }
+        else{
+            document.getElementById("dose").value="";
 
 
-    });
+        }
+
+
+   });
 
 </script>
 <!--autocalculate dose based on bmi for appoint scheduling in create_appointment-->
 <script>
-    function doseCalculation() {
-        var b = document.getElementById("bmi").value;
+   function doseCalculation() {
+       var b = document.getElementById("bmi").value;
 
-        var dose = 0.0091 * parseFloat(b) * parseFloat(b) * parseFloat(b) - 0.7925 * parseFloat(b) * parseFloat(b) + 25.89 * parseFloat(b) - 79.442;
-        // document.getElementById("dose").value = dose;
-        dose=Math.round((dose + Number.EPSILON) * 1000) / 1000
-        return dose
-    }
+       var dose = 0.0091 * parseFloat(b) * parseFloat(b) * parseFloat(b) - 0.7925 * parseFloat(b) * parseFloat(b) + 25.89 * parseFloat(b) - 79.442;
+       // document.getElementById("dose").value = dose;
+       dose=Math.round((dose + Number.EPSILON) * 1000) / 1000
+       return dose
+   }
 
-    document.getElementById("dose").value = doseCalculation();
+   document.getElementById("dose").value = doseCalculation();
 
 </script>
 
 
 <script>
-    $('#telephone_no').keyup(function(){
-    $(this).val($(this).val().replace(/(\d{3})\-?(\d{3})\-?(\d{4})/,'$1-$2-$3'))
+   $('#telephone_no').keyup(function(){
+   $(this).val($(this).val().replace(/(\d{3})\-?(\d{3})\-?(\d{4})/,'$1-$2-$3'))
 });
 </script>
 
 
 <script>
-  $('.dropdown-button').dropdown();
+ $('.dropdown-button').dropdown();
 
 </script>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.fixed-action-btn');
-    var instances = M.FloatingActionButton.init(elems, {
-      direction: 'top'
-    });
-  });
+ document.addEventListener('DOMContentLoaded', function() {
+   var elems = document.querySelectorAll('.fixed-action-btn');
+   var instances = M.FloatingActionButton.init(elems, {
+     direction: 'top'
+   });
+ });
 </script>
+
+<script>
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var radius = canvas.height / 2;
+ctx.translate(radius, radius);
+radius = radius * 0.90
+setInterval(drawClock, 1000);
+
+function drawClock() {
+ drawFace(ctx, radius);
+ drawNumbers(ctx, radius);
+ drawTime(ctx, radius);
+}
+
+function drawFace(ctx, radius) {
+ var grad;
+ ctx.beginPath();
+ ctx.arc(0, 0, radius, 0, 2*Math.PI);
+ ctx.fillStyle = 'white';
+ ctx.fill();
+ grad = ctx.createRadialGradient(0,0,radius*0.95, 0,0,radius*1.05);
+ grad.addColorStop(0, '#333');
+ grad.addColorStop(0.5, 'white');
+ grad.addColorStop(1, '#333');
+ ctx.strokeStyle = grad;
+ ctx.lineWidth = radius*0.1;
+ ctx.stroke();
+ ctx.beginPath();
+ ctx.arc(0, 0, radius*0.1, 0, 2*Math.PI);
+ ctx.fillStyle = '#333';
+ ctx.fill();
+}
+
+function drawNumbers(ctx, radius) {
+ var ang;
+ var num;
+ ctx.font = radius*0.15 + "px arial";
+ ctx.textBaseline="middle";
+ ctx.textAlign="center";
+ for(num = 1; num < 13; num++){
+   ang = num * Math.PI / 6;
+   ctx.rotate(ang);
+   ctx.translate(0, -radius*0.85);
+   ctx.rotate(-ang);
+   ctx.fillText(num.toString(), 0, 0);
+   ctx.rotate(ang);
+   ctx.translate(0, radius*0.85);
+   ctx.rotate(-ang);
+ }
+}
+
+function drawTime(ctx, radius){
+   var now = new Date();
+   var hour = now.getHours();
+   var minute = now.getMinutes();
+   var second = now.getSeconds();
+   //hour
+   hour=hour%12;
+   hour=(hour*Math.PI/6)+
+   (minute*Math.PI/(6*60))+
+   (second*Math.PI/(360*60));
+   drawHand(ctx, hour, radius*0.5, radius*0.07);
+   //minute
+   minute=(minute*Math.PI/30)+(second*Math.PI/(30*60));
+   drawHand(ctx, minute, radius*0.8, radius*0.07);
+   // second
+   second=(second*Math.PI/30);
+   drawHand(ctx, second, radius*0.9, radius*0.02);
+}
+
+function drawHand(ctx, pos, length, width) {
+   ctx.beginPath();
+   ctx.lineWidth = width;
+   ctx.lineCap = "round";
+   ctx.moveTo(0,0);
+   ctx.rotate(pos);
+   ctx.lineTo(0, -length);
+   ctx.stroke();
+   ctx.rotate(-pos);
+}
+</script>
+
+<script>
+function goBack() {
+ window.history.back();
+}
+</script>
+
 
 
 
@@ -394,5 +492,6 @@ $(document).ready(function() {
 <!--        $fixedHeader.hide();-->
 <!--    }-->
 <!--});</script>-->
+
 </body>
 </html>
