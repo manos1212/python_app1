@@ -96,7 +96,7 @@
                                                              class="input-standard-grey"
                                                              placeholder="Telephone No"
                                                              value={{form.initial.telephone_no}}
-                                                             required><small class="left" style="margin-bottom: -5px;margin-top:-5px">Format: 123-456-7890</small>
+                                                             required><small class="left" style="margin-bottom: -5px;margin-top:-5px">Format: 1234567890</small>
                         </label>
                     </div>
 
@@ -183,9 +183,9 @@
     {% endfor %}
 
       </tbody>
-<button class="myBtn" onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 </table></section>
 {% else %} <h4 class="no-appoints" >No History Records</h4>
     {% endif %}
+<button class="myBtn" onclick="topFunction()" id="myBtn" title="Go to top"><i class="material-icons">arrow_upward</i></button>
 </div>
 {% endblock content %}
