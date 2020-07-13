@@ -17,16 +17,12 @@ import numpy as np
 import joypy
 import seaborn as sns
 import csv
+from my_app.pdfs import NextDayPrint, PrevYearPrint
 matplotlib.use('Agg')
 
-from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import get_object_or_404
-from django.db.models import Q
-import cgi
 
 
 def home(request):
-    plot_bmi_diff()
     date1, a = check_availability()
     if date1 is None:
         date_value = "No availability"
@@ -52,16 +48,17 @@ def home(request):
 
 
 
-    return render(request, 'base.html', {"date": date_value, "dose":dose,"avg_bmi":avg_bmi})
+    return render(request, 'base.html', {"date": date_value, "dose":dose,"avg_bmi":avg_bmi, "clock":datetime.now()})
 
 
 def view_all(request):
     personal_info_list = Personal_information.objects.all()
+    count = len(personal_info_list)
     paginator = Paginator(personal_info_list, 25)  # Show 25 contacts per page.
 
     page_number = request.GET.get('page')
     personal_info = paginator.get_page(page_number)
-    return render(request, 'my_app/index.html', {"personal_info": personal_info})
+    return render(request, 'my_app/index.html', {"personal_info": personal_info, "count":count, "clock":datetime.now()})
 
 
 @csrf_exempt
@@ -103,7 +100,7 @@ def add_patient(request):
             # pat_id = request.POST.get("id")
             messages.error(request, f'Patient {pat_id} already exists')
             return redirect("/update/" + f"{pat_id}" + "#pat_info")
-    return render(request, "my_app/add_new.html", {"form": form})
+    return render(request, "my_app/add_new.html", {"form": form, "clock":datetime.now()})
 
 
 def get_id(request):
@@ -149,7 +146,7 @@ def update_patient(request, p_id):
             return redirect("/update/" + f"{p_id}" + "#pat_info")
             # return redirect("update", p_id=p_id)
     return render(request, "my_app/update.html",
-                  {"form": form, 'patient': patient, "p_id": p_id, "appoint_info": appoint_info})
+                  {"form": form, 'patient': patient, "p_id": p_id, "appoint_info": appoint_info, "clock":datetime.now()})
 
 
 def view_all_appoints(request):
@@ -158,7 +155,7 @@ def view_all_appoints(request):
 
     page_number = request.GET.get('page')
     appoint_info= paginator.get_page(page_number)
-    return render(request, 'my_app/index_appoints.html', {"appoint_info": appoint_info})
+    return render(request, 'my_app/index_appoints.html', {"appoint_info": appoint_info, "clock":datetime.now()})
 
 
 def create_appoint(request, p_id):  # ,appoint_date
@@ -171,7 +168,7 @@ def create_appoint(request, p_id):  # ,appoint_date
         return redirect("/update/" + f"{p_id}" + "#history")
     else:
         date = date1.strftime('%Y-%m-%d %H:%M:%S')
-        context = {"form": form, "appoint_date": date,"p_id":p_id}
+        context = {"form": form, "appoint_date": date,"p_id":p_id, "clock":datetime.now()}
         if request.method == "POST":
             if appoint_form.is_valid():
                 appoint_form.save()
@@ -295,7 +292,7 @@ def plots(request):
     data6 = plot_3d()
     data7 = plot_year_bmi_destr()
 
-    return render(request,"my_app/plots.html", {"data":uris, "data1":data1, "data2":data2, "data3":data3,"data4":data4,"data5":data5,"data6":data6,"data7":data7})
+    return render(request,"my_app/plots.html", {"data":uris, "data1":data1, "data2":data2, "data3":data3,"data4":data4,"data5":data5,"data6":data6,"data7":data7, "clock":datetime.now()})
 
 def plot_total_dose_per_year():
     dpp_curr_year=[]
@@ -328,9 +325,21 @@ def plot_total_dose_per_year():
     ax.set_xlabel('Dose (MBq)', fontsize=15)
     ax.set_ylabel('Year', fontsize=15)
     ax.set_title('Summary of total dose per year', fontsize=18)
+
+    diff= (total_dose_prev_year * 100) / total_dose_2018 # calculate the percentage diff between previous year and  year 2018
+    f_perc = diff - 100
+    f_perc = round(f_perc,2)
+
     for i, v in enumerate(dose):
-        v=round(v,3)
-        ax.text(v + 3, i, " " + str(v), color='#096daa', fontweight='bold')
+       if v==total_dose_prev_year:
+           v = round(v, 3)
+           ax.text(v + 3, i, " " + str(v), color='#096daa', fontweight='bold')
+           ax.text( v,i, "                              - Diff from year 2018:  "+ str(f_perc) + "%", color='#e57373', fontweight='bold')
+
+       else:
+           v=round(v,3)
+           ax.text(v + 3, i, " " + str(v), color='#096daa', fontweight='bold')
+
     fig.set_size_inches(18.5, 6.5)
     buf = io.BytesIO()
     fig.savefig(buf, format='png')
@@ -717,7 +726,7 @@ def plot_age_bmi_violin():
     df = pd.DataFrame(list3, columns=["Bmi", "Age", "Sex"])
 
     sns.violinplot(x='Age', y='Bmi', data=df, scale='width', inner='quartile')
-    sns.stripplot(x="Age", y="Bmi", color="blue", data=df)
+    sns.stripplot(x="Age", y="Bmi", color="#1a237e", data=df)
     fig = plt.gcf()
     fig.set_size_inches(18.5, 6.5)
     plt.title('Violin Plot of Bmi with Multiple Age Categories', fontsize=18)
@@ -789,78 +798,112 @@ def plot_3d():
 
 
 
-def tomorrows_dose(request):
+def tomorrows_dose_csv(request):
 
-    now_date = datetime.today().date()
+   now_date = datetime.today().date()
 
-    if now_date.weekday() == 4:
-        day_tomorrow = now_date + timedelta(days=3)
-    else:
-        day_tomorrow = now_date + timedelta(days=1)
-    tomorrows_doses = Appointment.objects.filter(date_time__contains=day_tomorrow)
-    total_dose = 0
-    tomorrows_appointments=[]
-    for i in tomorrows_doses:
-        # date_time = i.date_time.strftime('%d-%m-%Y %H:%M:%S')
-        app_per_pat = [i.id,i.amka_id,i.weight,i.bmi,i.dose,i.date_time]
-        dose = i.dose
-        total_dose = total_dose + dose
-        tomorrows_appointments.append(app_per_pat)
-    print(tomorrows_appointments)
+   if now_date.weekday() == 4:
+       day_tomorrow = now_date + timedelta(days=3)
+   elif now_date.weekday() == 5:
+       day_tomorrow = now_date + timedelta(days=2)
+   else:
+       day_tomorrow = now_date + timedelta(days=1)
+   tomorrows_doses = Appointment.objects.filter(date_time__contains=day_tomorrow)
+   total_dose = 0
+   tomorrows_appointments=[]
+   for i in tomorrows_doses:
+       # date_time = i.date_time.strftime('%d-%m-%Y %H:%M:%S')
+       app_per_pat = [i.id,i.amka_id,i.weight,i.bmi,i.dose,i.date_time]
+       dose = i.dose
+       total_dose = total_dose + dose
+       tomorrows_appointments.append(app_per_pat)
+   print(tomorrows_appointments)
 
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="tomorrow_dose.csv"'
-    writer = csv.writer(response)
-    writer.writerow(['Appointment', 'Amka', 'Weight', 'Bmi', 'Dose', 'Appointment Date/Time'])
+   response = HttpResponse(content_type='text/csv')
+   response['Content-Disposition'] = 'attachment; filename="Tomorrows_dose.csv"'
+   writer = csv.writer(response)
+   writer.writerow(['Appointment', 'Amka', 'Weight', 'Bmi', 'Dose', 'Date/Time'])
 
-    for i in tomorrows_appointments:
-        writer.writerow(i)
-    writer.writerow([""])
-    writer.writerow(["Total Dose"])
-    writer.writerow([total_dose])
-    return response
-
-
-
-
-from fpdf import FPDF
+   for i in tomorrows_appointments:
+       writer.writerow(i)
+   writer.writerow([""])
+   writer.writerow(["Total Dose"])
+   writer.writerow([total_dose])
+   return response
 
 
-def tomorrows_dose_pdf(request, spacing=1):
-    now_date = datetime.today().date()
 
-    if now_date.weekday() == 4:
-        day_tomorrow = now_date + timedelta(days=3)
-    else:
-        day_tomorrow = now_date + timedelta(days=1)
-    tomorrows_doses = Appointment.objects.filter(date_time__contains=day_tomorrow)
-    total_dose = 0
-    tomorrows_appointments = []
-    for i in tomorrows_doses:
-        date_time = i.date_time.strftime('%d-%m-%Y %H:%M:%S')
-        app_per_pat = [str(i.id),str(i.amka_id),str(i.weight),str(i.bmi),str(i.dose),date_time]
-        dose = i.dose
-        total_dose = total_dose + dose
-        tomorrows_appointments.append(app_per_pat)
-    data = tomorrows_appointments
-    print(data)
+def tomorrows_dose_pdf(request):
+   # Create the HttpResponse object with the appropriate PDF headers.
+   response = HttpResponse(content_type='application/pdf')
+   response['Content-Disposition'] = 'attachment; filename="Tomorrows_dose.pdf"'
 
-    pdf = FPDF()
-    pdf.set_font("Arial", size=12)
-    pdf.add_page()
+   buffer = BytesIO()
 
-    col_width = pdf.w / 4.5
-    row_height = pdf.font_size
-    for row in data:
-        for item in row:
-            pdf.cell(col_width, row_height*spacing,
-                     txt=item, border=1)
-        pdf.ln(row_height * spacing)
+   report = NextDayPrint(buffer, 'Letter')
+   pdf = report.pdf_tomorrow()
+
+   response.write(pdf)
+   return response
 
 
-    pdf.output(r'C:\Users\manos\Desktop\tomorrows_dose2.pdf', dest="F").encode('latin-1')
-    # pdf.output(dest='I').encode('latin-1')
-    return HttpResponse("all shit")
+
+
+def prev_year_csv (request):
+   now_date = datetime.today().date()
+   prev_year1 = now_date - timedelta(days=365)
+   prev_year = prev_year1.year
+
+   prev_year_appoints = Appointment.objects.filter(date_time__contains=prev_year)
+   total_dose = 0
+   total_bmi = 0
+   prev_year_appointments = []
+   for i in prev_year_appoints:
+       app_per_pat = [i.id, i.amka_id, i.weight, i.bmi, i.dose, i.date_time]
+       dose = i.dose
+       total_dose = total_dose + dose
+       total_bmi += i.bmi
+       prev_year_appointments.append(app_per_pat)
+   avg_dose = round(total_dose / len(prev_year_appoints),3)
+   avg_bmi = round(total_bmi / len(prev_year_appoints),3)
+
+
+   response = HttpResponse(content_type='text/csv')
+   response['Content-Disposition'] = 'attachment; filename="Last Year.csv"'
+   writer = csv.writer(response)
+   writer.writerow(['Appointment', 'Amka', 'Weight', 'Bmi', 'Dose', 'Date/Time', ' ', ' ',  'Avg Dose:', avg_dose, ' ', 'Avg Bmi:', avg_bmi])
+   # writer.writerow([' ',' ', ' ', ' ', ' ', ' ', ' ', ' ', avg_dose])
+   for i in prev_year_appointments:
+       writer.writerow(i)
+       # writer.writerow([""])
+   return response
+
+
+def prev_year_pdf(request):
+   response = HttpResponse(content_type='application/pdf')
+   response['Content-Disposition'] = 'attachment; filename="Last_year.pdf"'
+
+   buffer = BytesIO()
+
+   report = PrevYearPrint(buffer, 'Letter')
+   pdf = report.pdf_tomorrow()
+
+   response.write(pdf)
+   return response
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     # response = HttpResponse(content_type='application/pdf')
     # response['Content-Disposition'] = 'attachment; filename="tomorrows_apps.pdf"'
