@@ -20,8 +20,7 @@
                     <div class="col l6 col m6 col s12 col s12">
                         <label class="d1">Weight<input name="weight" id="weight" type="number" min="40" max="200"step="0.01"
                                                     class="input1 input-standard-grey" placeholder="Weight"
-                                                    value={{form.initial.weight}} required><small class="left" style="margin-bottom: -12px; margin-top: -5px">* Important Field</small>
-                        </label></div>
+                                                    value={{form.initial.weight}} style="cursor: not-allowed" readonly="readonly"></label></div>
 
                 </div>
                 <div class="row">
@@ -33,11 +32,12 @@
                         </label></div>
                 </div>
                 <div class="row">
-                    <div class="col l6 col m6 col s12 col s12">
+                    <div class="col l6 col m6 col s12">
 <!--                        min="17" max="60" step="0.001"-->
-                        <label class="d1">Appointment Date/Time<input  name="date_time" id="date_time" type="text"
-                                                    class="input-standard-grey" placeholder="Date/Time" value="{{appoint_date}}" style="cursor: not-allowed" readonly="readonly"  required>
-                        </label></div>
+                       <label class="d1">Appointment Date/Time<input  name="date_time" id="date_time" type="text"
+                                                   class="input2 input-standard-grey" placeholder="Date/Time" value="{{appoint_date}}" style="cursor: not-allowed" readonly="readonly"  required>
+                       </label></div>
+
                     <div class="col l6 col m6 col s12 col s12">
 
                         <label class="d1"><input name="height" id="height" type="text"
@@ -50,6 +50,10 @@
                     <button id="book" class="add-btn waves-effect waves-yellow btn">Book</button>
                 </div>
             </form>
+<div style="float: right" >
+       <button id="back" class="back-btn waves-effect waves-red btn" style="right: 10px" onclick="goBack()">Back</button>
+   </div>
+
         </div>
     </div>
 </div>
