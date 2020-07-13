@@ -12,8 +12,10 @@ urlpatterns = [
     path("add-pat/", views.get_id, name="test"),
     path('viewappoints/delete/<int:appoint_id>/', views.delete_appoint),
     path('plots/', views.plots, name="plots"),
-    path('tomorrows_dose_csv/', views.tomorrows_dose, name="tomorrows_dose"),
+    path('tomorrows_dose_csv/', views.tomorrows_dose_csv, name="tomorrows_dose_csv"),
     path('tomorrows_dose_pdf/', views.tomorrows_dose_pdf, name="tomorrows_dose_pdf"),
+    path('last_year_pdf/', views.prev_year_pdf, name="previous_year_pdf"),
+    path('last_year_csv/', views.prev_year_csv, name="previous_year_csv"),
 
     # path("test1/", views.get_id_field, name="test1")
     # path('test/<int:p_id>/', views.update_patient, name="test")
