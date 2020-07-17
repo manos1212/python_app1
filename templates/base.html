@@ -118,7 +118,7 @@ style="background-color:#0277bd; margin-top:-2px">
 <div class="container">
 {% block content %}
  <div class="row" style="margin-left: 50px">
-   <div class="col s4">
+   <div class="col s12 m4 l4">
      <div class="card">
 <!--          <div class="card-content">-->
           </br><h5 align="center" style="padding-right: 4px"><i class="material-icons" style="font-size: 19px">insert_invitation &nbsp</i>Next Availability</h5></br>
@@ -128,7 +128,7 @@ style="background-color:#0277bd; margin-top:-2px">
        </div>
      </div>
    </div>
-     <div class="col s4">
+     <div class="col s12 m4 l4">
      <div class="card">
 <!--          <div class="card-content">-->
           </br><h5 align="center" style="margin-right: 10px"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ7diVQhhE59r-d1RQqQmohJ9yTTgVXzz1gyw&usqp=CAU" style="height:18px;width:18px" align="center">&nbsp Tomorrow's Dose</h5></br>
@@ -137,7 +137,8 @@ style="background-color:#0277bd; margin-top:-2px">
          <img src="{% static 'images/img2.png' %}">
        </div>
      </div>
-   </div><div class="col s4">
+   </div>
+<div class="col s12 m4 l4">
      <div class="card">
 <!--          <div class="card-content">-->
           </br><h5 align="center"><img src="https://image.flaticon.com/icons/png/512/343/343094.png" style="height:18px;width:18px" >&nbspCurrent year Avg Bmi</h5></br>
@@ -179,6 +180,21 @@ style="background-color:#0277bd; margin-top:-2px">
        $('.slider').slider();
    });
 </script>
+
+<!--autorefresh date_time field every 100miliseconds to prevent duplicate entries-->
+<script>
+   setInterval("my_function();",10);
+   function my_function(){
+     $('#date_update').load(location.href + ' #date_time');
+   }
+</script>
+
+
+
+
+
+
+
 <!--collapsible sidebar-->
 <script> $(document).ready(function(){
    $('.sidenav').sidenav();
