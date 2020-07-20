@@ -14,15 +14,15 @@
 <body>
 
 <nav class="main-nav #0277bd light-blue darken-3">
-   <div class="row right">
-       <div class="watch col s3" style="padding-right: 50px" title="{{clock}}">
+   <div class="row">
+       <div class="watch col s2 right hide-on-med-and-down" style="text-align: right" title="{{clock}}">
            <canvas id="canvas" width="70" height="68"
 style="background-color:#0277bd; margin-top:-2px">
 </canvas></div>
 
+   <div class="col s12 m3 l3"> <a href="/" class="brand-logo" ><i class="material-icons">local_hospital</i>HealthMed</a></div>
+  <div class="center hide-on-med-and-down" style="font-size: 30px"><p>Log In Page</p></div>
    </div>
-       <a href="/" class="brand-logo" style="left:100px"><i class="material-icons">local_hospital</i>HealthMed</a>
-  <div  style=" margin-left: 700px; font-size: 30px"><p>Log In Page</p></div>
 </nav>
 <div class="slider">
    <ul class="slides">
@@ -66,18 +66,18 @@ style="background-color:#0277bd; margin-top:-2px">
 {% block content %}
     <form method="post" class="from-group" onsubmit="return validateForm()" name="myForm">
   {% csrf_token %}
-      <div class="row">
-                    <div class="col l12 col m12 col s12" style="width: 500px; margin-left: 300px;margin-top: 50px">
-                       <label class="d1">Username*<input name="username" id="username" type="text" class="input-standard-grey" placeholder="Username"  value="{{form.username.value|crispy}}" required>
+
+                    <div class="col s12" style="margin: auto; width:50%; min-width: 300px; padding-top: 20px">
+                       <label class="d1">Username*<input name="username" type="text" id="username" class="input-standard-grey" placeholder="Username"  value="{{form.username.value|crispy}}" required>
                        </label></div>
-         </div>
-         <div class="row">
-                   <div class="col l12 col m12 col s12" style="width: 500px; margin-left: 300px">
-                       <label class="d1">Password*<input name="password" id="password" type="password" class="input-standard-grey"  placeholder="Password"  value="{{form.password.value|crispy}}" required>
+
+
+                   <div class="col s12" style="margin:auto; width: 50%; min-width: 300px;  padding-top: 20px">
+                       <label class="d1">Password*<input name="password" type="password" id="password" class="input-standard-grey"  placeholder="Password"  value="{{form.password.value|crispy}}" required>
                        </label></div>
-               </div>
 <!--   {{form|crispy}}-->
-  <button type="submit" class="btn btn-success" style="margin-left: 470px; width:150px">Login</button>
+        <div class="col s12 center" style="margin: auto; width: 50%; padding-top: 10px">
+  <button type="submit" class="btn btn-success" style="min-width:200px; text-align: center">Login</button></div>
    </form>
 
 {% endblock %}
@@ -189,3 +189,4 @@ function drawHand(ctx, pos, length, width) {
 </div>
 </body>
 </html>
+
