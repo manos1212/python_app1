@@ -3,129 +3,129 @@
 {% block content %}
 
 <div class="container">
-    <div class="wrapper">
-        <h4 id="pat_info">Register New Patient</h4>
-    </div>
-    <div class="contact-form medium-padding120">
-        <div class="row">
-            <form action="{% url 'add' %}"  method="post" class="contact-form">
-                {% csrf_token%}
-                <div class="row">
-                    <div class="col l6 col m6 col s12">
-                        <label class="d1">AMKA<input name="id" type="text"
-                                                     class="input-standard-grey" pattern="[0-9]{11}" placeholder="AMKA" value="{{id|default_if_none:''}}" required><small class="left" style="margin-bottom: -10px;margin-top:-5px">Format: 12345678901</small>
-                        </label></div>
+   <div class="wrapper">
+       <h4 id="pat_info">Register New Patient</h4>
+   </div>
+   <div class="contact-form medium-padding120">
+       <div class="row">
+           <form action="{% url 'add' %}"  method="post" class="contact-form">
+               {% csrf_token%}
+               <div class="row">
+                   <div class="col l6 col m6 col s12">
+                       <label class="d1">AMKA<input name="id" type="text"
+                                                    class="input-standard-grey" pattern="[0-9]{11}" placeholder="AMKA" value="{{id|default_if_none:''}}" required><small class="left" style="margin-bottom: -10px;margin-top:-5px">Format: 12345678901</small>
+                       </label></div>
 
 
-                    <div class="col l6 col m6 col s12">
-                        <label class="d1">Name<input name="name" type="text" maxlength="30" size="50"
-                                                     class="input-standard-grey" placeholder="Name" value="{{form.name.value|default_if_none:''}}" required>
-                        </label></div>
-                    </div>
-                <div class="row">
+                   <div class="col l6 col m6 col s12">
+                       <label class="d1">Name<input name="name" type="text" maxlength="30" size="50"
+                                                    class="input-standard-grey" placeholder="Name" value="{{form.name.value|default_if_none:''}}" required>
+                       </label></div>
+                   </div>
+               <div class="row">
 
-                    <div class="col l6 col m6 col s12">
-                        <label class="d1">Age<input name="age" type="number" min="0" max="110" step="1"
+                   <div class="col l6 col m6 col s12">
+                       <label class="d1">Age<input name="age" type="number" min="0" max="110" step="1"
 
-                                                    class="input-standard-grey" placeholder="Age" value="{{form.age.value|default_if_none:''}}" required>
-                        </label></div>
-                    <div class="col l6 col m6 col s12">
-                        <label class="d1">Children<input name="children" type="number" min="0" max="15" step="1"
-                                                         class="input-standard-grey" placeholder="Children" value="{{form.children.value|default_if_none:''}}" required>
-                        </label></div>
+                                                   class="input-standard-grey" placeholder="Age" value="{{form.age.value|default_if_none:''}}" required>
+                       </label></div>
+                   <div class="col l6 col m6 col s12">
+                       <label class="d1">Children<input name="children" type="number" min="0" max="15" step="1"
+                                                        class="input-standard-grey" placeholder="Children" value="{{form.children.value|default_if_none:''}}" required>
+                       </label></div>
 
 
-                </div>
-                <div class="row">
-                      <div class="col l4 col m4 col s8">
-                        <label class="d1">Weight<input name="weight" id="weight" type="number" min="40" max="200"step="0.01"
-                                                       class="input1 input-standard-grey" placeholder="Weight" value="{{form.weight.value|default_if_none:''}}" required>
-                        </label></div>
-                    <div class="col l4 col m4 col s8">
-                        <label class="d1">Height<input name="height" id="height" type="number" min="1.40" max="2.30" step="0.01"
-                                                       class="input1 input-standard-grey" placeholder="Height" value="{{form.height.value|default_if_none:''}}" required>
-                        </label></div>
-                    <div class="col l4 col m4 col s8 ">
+               </div>
+               <div class="row">
+                     <div class="col l4 col m4 col s4">
+                       <label class="d1">Weight<input name="weight" id="weight" type="number" min="40" max="200"step="0.01"
+                                                      class="input1 input-standard-grey" placeholder="Weight" value="{{form.weight.value|default_if_none:''}}" required>
+                       </label></div>
+                   <div class="col l4 col m4 col s4">
+                       <label class="d1">Height<input name="height" id="height" type="number" min="1.40" max="2.30" step="0.01"
+                                                      class="input1 input-standard-grey" placeholder="Height" value="{{form.height.value|default_if_none:''}}" required>
+                       </label></div>
+                   <div class="col l4 col m4 col s4">
 <!--                        min="17" max="60" step="0.001"-->
-                        <label class="d1">Bmi<input name="bmi" id="bmi1" type="text"
-                                                    class="input-standard-grey" placeholder="Bmi" value="{{form.bmi.value|default_if_none:''}}" hidden>
-                            <input name="bmi1" id="bmi" type="text"
-                                                    class="input-standard-grey" placeholder="Bmi" value="{{form.bmi.value|default_if_none:''}}" style="cursor: not-allowed"  readonly>
-                        </label></div>
+                       <label class="d1">Bmi<input name="bmi" id="bmi1" type="text"
+                                                   class="input-standard-grey" placeholder="Bmi" value="{{form.bmi.value|default_if_none:''}}" hidden>
+                           <input name="bmi1" id="bmi" type="text"
+                                                   class="input-standard-grey" placeholder="Bmi" value="{{form.bmi.value|default_if_none:''}}" style="cursor: not-allowed"  readonly>
+                       </label></div>
 
-                </div>
-                <div class="row">
+               </div>
+               <div class="row">
 
-                    <div class="col l6 col m6 col s12">
-                        <label class="d1">Smoker</label>
-                        <fieldset class="f1">
-                            <label class="rb1 right"><input name="smoker" id="yes" type="radio" class="dd1 right"
-                                                            value="yes" {% if form.smoker.value == "yes" %} checked {% endif %} required>
+                   <div class="col l6 col m6 col s12">
+                       <label class="d1">Smoker</label>
+                       <fieldset class="f1">
+                           <label class="rb1 right"><input name="smoker" id="yes" type="radio" class="dd1 right"
+                                                           value="yes" {% if form.smoker.value == "yes" %} checked {% endif %} required>
 <!--                                                            value="{{form.smoker.value|default_if_none:'yes'}}" required>-->
-                                <span>yes</span></label>
-                            <!--                            <label for="yes" >yes</label></br>-->
-                            <label class="rb1 left"><input name="smoker" id="no" type="radio" value="no"
-                                                           class="input-standard-grey" value="no" {% if form.smoker.value == "no" %} checked {% endif %} required>
+                               <span>yes</span></label>
+                           <!--                            <label for="yes" >yes</label></br>-->
+                           <label class="rb1 left"><input name="smoker" id="no" type="radio" value="no"
+                                                          class="input-standard-grey" value="no" {% if form.smoker.value == "no" %} checked {% endif %} required>
 <!--                                                           value="{{form.smoker.value|default_if_none:'no'}}"-->
 
-                                <span>no</span></label>
-                            <!--                              <label for="no" >no</label>-->
-                        </fieldset>
-                    </div>
+                               <span>no</span></label>
+                           <!--                              <label for="no" >no</label>-->
+                       </fieldset>
+                   </div>
 
-                    <div class="col l6 col m6 col s12">
-                        <label class="d1">Sex</label>
-                        <fieldset class="f1">
-                            <label class="rb1 left"><input name="sex" id="male" type="radio" class="input-standard-grey"
-                                                               value="male" {% if form.sex.value == "male" %} checked {% endif %} required>
-                                <span>male</span></label>
-                            <!--                            <label for="yes" >yes</label></br>-->
-                            <label class="rb1 right"><input name="sex" id="female" type="radio"
+                   <div class="col l6 col m6 col s12">
+                       <label class="d1">Sex</label>
+                       <fieldset class="f1">
+                           <label class="rb1 left"><input name="sex" id="male" type="radio" class="input-standard-grey"
+                                                              value="male" {% if form.sex.value == "male" %} checked {% endif %} required>
+                               <span>male</span></label>
+                           <!--                            <label for="yes" >yes</label></br>-->
+                           <label class="rb1 right"><input name="sex" id="female" type="radio"
+                                                           class="input-standard-grey"
+                                                           value="female" {% if form.sex.value == "female" %} checked {% endif %} required>
+                               <span>female</span></label>
+                           <!--                              <label for="no" >no</label>-->
+                       </fieldset>
+                   </div>
+
+               </div>
+               <div class="row" style="margin-top: 30px">
+                   <div class="col l6 col m6 col s12">
+                       <label class="d1">Charges<input name="charges" type="number" min="0" step="0.01"
+                                                       class="input-standard-grey" placeholder="Charges" value="{{form.charges.value|default_if_none:''}}" required>
+                       </label></div>
+                   <div class="col l6 col m6 col s12">
+                       <label class="d1">Telephone_no<input  id="telephone_no" name="telephone_no" type="tel"
+                                                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                                                             class="input-standard-grey"
-                                                            value="female" {% if form.sex.value == "female" %} checked {% endif %} required>
-                                <span>female</span></label>
-                            <!--                              <label for="no" >no</label>-->
-                        </fieldset>
-                    </div>
+                                                            placeholder="Telephone No" value="{{form.telephone_no.value|default_if_none:''}}" required><small class="left" style="margin-bottom: -5px;margin-top:-5px">Format: 1234567890</small>
+                       </label>
+                   </div>
 
-                </div>
-                <div class="row" style="margin-top: 30px">
-                    <div class="col l6 col m6 col s12">
-                        <label class="d1">Charges<input name="charges" type="number" min="0" step="0.01"
-                                                        class="input-standard-grey" placeholder="Charges" value="{{form.charges.value|default_if_none:''}}" required>
-                        </label></div>
-                    <div class="col l6 col m6 col s12">
-                        <label class="d1">Telephone_no<input  id="telephone_no" name="telephone_no" type="tel"
-                                                             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                                                             class="input-standard-grey"
-                                                             placeholder="Telephone No" value="{{form.telephone_no.value|default_if_none:''}}" required><small class="left" style="margin-bottom: -5px;margin-top:-5px">Format: 1234567890</small>
-                        </label>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col l6 col m6 col s12">
-                        <label class="d1">Email<input name="email" type="email" maxlength="80" size="50"
-                                                        class="input-standard-grey" placeholder="Email" value="{{form.email.value|default_if_none:''}}" required>
-                        </label>
-                    </div>
-                    <div class="col l6 col m6 col s12">
-                        <label class="d1">Region<input name="region" type="text" class="input-standard-grey"
-                                                       placeholder="Region" value="{{form.region.value|default_if_none:''}}" required>
-                        </label></div>
-                </div>
-                <div class="col l3 col m3 col s6 col s6">
-                    <button class="add-btn waves-effect waves-yellow btn" name="Sub1">Save</button>
-                </div>
-                <div class="col l3 col m3 col s6 col s6" style="float: right" >
-                    <button class="update-schedule-appoint waves-effect waves-yellow btn" name="App1">
-                        Save & Schedule Appoint
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-      </tbody>
+               </div>
+               <div class="row">
+                   <div class="col l6 col m6 col s12">
+                       <label class="d1">Email<input name="email" type="email" maxlength="80" size="50"
+                                                       class="input-standard-grey" placeholder="Email" value="{{form.email.value|default_if_none:''}}" required>
+                       </label>
+                   </div>
+                   <div class="col l6 col m6 col s12">
+                       <label class="d1">Region<input name="region" type="text" class="input-standard-grey"
+                                                      placeholder="Region" value="{{form.region.value|default_if_none:''}}" required>
+                       </label></div>
+               </div>
+               <div class="col l3 col m3 col s6 col s6">
+                   <button class="add-btn waves-effect waves-yellow btn" name="Sub1">Save</button>
+               </div>
+               <div class="col l3 col m3 col s6 col s6" style="float: right" >
+                   <button class="update-schedule-appoint waves-effect waves-yellow btn" name="App1">
+                       Save & Schedule Appoint
+                   </button>
+               </div>
+           </form>
+       </div>
+   </div>
+     </tbody>
 <button class="myBtn" onclick="topFunction()" id="myBtn" title="Go to top"><i class="material-icons">arrow_upward</i></button>
 </div>
 {% endblock content %}
@@ -200,3 +200,4 @@
 <!--        </form>-->
 <!--    </div>-->
 <!--</div>-->
+
