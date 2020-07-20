@@ -2,91 +2,94 @@
 
 {% block content %}
 
-<section id="view_appoints_top"><table class="highlight">
+<section id="view_appoints_top">
+   <div class="col s12 center" style="overflow:auto;">
+   <table class="highlight">
 
 
-        <tr>
-                <h4 >Appointments' Info</h4>
+       <tr>
+               <h4 >Appointments' Info</h4>
 
-        </tr>
+       </tr>
 
 
 <thead>
-    <tr class="table1" >
-        <th>Appoint_Id</th>
-        <th>Amka</th>
-        <th>Weight</th>
-        <th>Bmi</th>
-        <th>Dose</th>
-        <th >Appoint_Date_Time</th>
-        <th class ="th1"> Delete </th>
+   <tr class="table1" >
+       <th>Appoint_Id</th>
+       <th>Amka</th>
+       <th>Weight</th>
+       <th>Bmi</th>
+       <th>Dose</th>
+       <th >Appoint_Date_Time</th>
+       <th class ="th1"> Delete </th>
 
-    </tr>
+   </tr>
 
-    </thead>
-    <tbody>
-     {% for item in appoint_info%}
-        <tr>
-            <td >{{item.id}}</td>
-            <td >{{item.amka_id}}</td>
-            <td>{{item.weight}}</td>
-            <td>{{item.bmi}}</td>
-            <td>{{item.dose|floatformat:2}}</td>
-            <td>{{item.date_time}}</td>
-            <td>
-             <form action="delete/{{ item.id }}/" method="POST">
-                  <button name="Del" class="delete-btn btn-floating  waves-effect waves-light red" onclick="return confirm('Are you sure you want to delete appointment with ID {{item.id}}?')" ><i class="material-icons" >delete</i></button>
-             </form>
+   </thead>
+   <tbody>
+    {% for item in appoint_info%}
+       <tr>
+           <td >{{item.id}}</td>
+           <td >{{item.amka_id}}</td>
+           <td>{{item.weight}}</td>
+           <td>{{item.bmi}}</td>
+           <td>{{item.dose|floatformat:2}}</td>
+           <td>{{item.date_time}}</td>
+           <td>
+            <form action="delete/{{ item.id }}/" method="POST">
+                 <button name="Del" class="delete-btn btn-floating  waves-effect waves-light red" onclick="return confirm('Are you sure you want to delete appointment with ID {{item.id}}?')" ><i class="material-icons" >delete</i></button>
+            </form>
 
-             </td>
+            </td>
 
-        </tr>
-    {% endfor %}
-    <div class="pagination right">
-    <ul>
-    {% if appoint_info.has_previous %}
-   <li class="waves-effect"><a href="?page=1"><i class="material-icons">first_page</i></a></li>
-          <li class="waves-effect"> <a href="?page={{ appoint_info.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
-    {% endif %}
-     {% for num in appoint_info.paginator.page_range%}
-     {% if appoint_info.number == num %}
+       </tr>
+   {% endfor %}
+   <div class="pagination right">
+   <ul>
+   {% if appoint_info.has_previous %}
+  <li class="waves-effect"><a href="?page=1"><i class="material-icons">first_page</i></a></li>
+         <li class="waves-effect"> <a href="?page={{ appoint_info.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+   {% endif %}
+    {% for num in appoint_info.paginator.page_range%}
+    {% if appoint_info.number == num %}
 <!--            <strong>{{ num }}</strong>-->
-    <li class="active ac1"><a href="?page={{num}}">{{num}}</a></li>
+   <li class="active ac1"><a href="?page={{num}}">{{num}}</a></li>
 
-     {% elif num > appoint_info.number|add:'-5' and num < appoint_info.number|add:'5' %}
-            <li class="waves-effect"><a href="?page={{num}}">{{num}}</a></li>
-            {% endif %}
-     {% endfor %}
-    {% if appoint_info.has_next %}
-            <li class="waves-effect"><a href="?page={{ appoint_info.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
-            <li class="waves-effect"><a href="?page={{ appoint_info.paginator.num_pages }}"><i class="material-icons">last_page</i></a></li>
-        {% endif %}
-        </ul>
+    {% elif num > appoint_info.number|add:'-5' and num < appoint_info.number|add:'5' %}
+           <li class="waves-effect"><a href="?page={{num}}">{{num}}</a></li>
+           {% endif %}
+    {% endfor %}
+   {% if appoint_info.has_next %}
+           <li class="waves-effect"><a href="?page={{ appoint_info.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+           <li class="waves-effect"><a href="?page={{ appoint_info.paginator.num_pages }}"><i class="material-icons">last_page</i></a></li>
+       {% endif %}
+       </ul>
 </div></br>
 
-      </tbody>
+     </tbody>
 <button class="myBtn" onclick="topFunction()" id="myBtn" title="Go to top"><i class="material-icons">arrow_upward</i></button>
 </table>
 <!--    </br>-->
-    <div class="pagination right">
-    <ul>
-    {% if appoint_info.has_previous %}
-   <li class="waves-effect"><a href="?page=1"><i class="material-icons">first_page</i></a></li>
-          <li class="waves-effect"> <a href="?page={{ appoint_info.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
-    {% endif %}
-     {% for num in appoint_info.paginator.page_range%}
-     {% if appoint_info.number == num %}
+   <div class="pagination right">
+   <ul>
+   {% if appoint_info.has_previous %}
+  <li class="waves-effect"><a href="?page=1"><i class="material-icons">first_page</i></a></li>
+         <li class="waves-effect"> <a href="?page={{ appoint_info.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+   {% endif %}
+    {% for num in appoint_info.paginator.page_range%}
+    {% if appoint_info.number == num %}
 <!--            <strong>{{ num }}</strong>-->
-    <li class="active ac1"><a href="?page={{num}}">{{num}}</a></li>
+   <li class="active ac1"><a href="?page={{num}}">{{num}}</a></li>
 
-     {% elif num > appoint_info.number|add:'-5' and num < appoint_info.number|add:'5' %}
-            <li class="waves-effect"><a href="?page={{num}}">{{num}}</a></li>
-            {% endif %}
-     {% endfor %}
-    {% if appoint_info.has_next %}
-            <li class="waves-effect"><a href="?page={{ appoint_info.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
-            <li class="waves-effect"><a href="?page={{ appoint_info.paginator.num_pages }}"><i class="material-icons">last_page</i></a></li>
-        {% endif %}
-        </ul>
-</div></section>
+    {% elif num > appoint_info.number|add:'-5' and num < appoint_info.number|add:'5' %}
+           <li class="waves-effect"><a href="?page={{num}}">{{num}}</a></li>
+           {% endif %}
+    {% endfor %}
+   {% if appoint_info.has_next %}
+           <li class="waves-effect"><a href="?page={{ appoint_info.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+           <li class="waves-effect"><a href="?page={{ appoint_info.paginator.num_pages }}"><i class="material-icons">last_page</i></a></li>
+       {% endif %}
+       </ul>
+</div></div></section>
 {% endblock content %}
+
