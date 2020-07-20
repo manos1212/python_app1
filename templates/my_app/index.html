@@ -1,112 +1,112 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<div class="col s12 center" style="overflow:auto;">
 <table class="highlight">
 
 
-        <tr>
-                <h4 >Patients' Personal Information</h4>
+       <tr>
+               <h4>Patients' Personal Information</h4>
 
-        </tr>
-<label style="font-size: 28px">Total: {{count}} patients</label>
-
+       </tr>
+   <label class= "left" style="font-size: 28px">Total: {{count}} patients</label>
 <thead>
-    <tr class="table1" >
-        <th>AMKA</th>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Sex</th>
-        <th>Weight</th>
-        <th>Height</th>
-        <th>Bmi</th>
-        <th >Children</th>
-        <th>Smoker</th>
-        <th>Region</th>
-        <th>Charges</th>
-        <th>Telephone Num</th>
-        <th>Address</th>
-        <th class ="th1"> Delete Edit</th>
+   <tr class="table1">
+       <th>AMKA</th>
+       <th>Name</th>
+       <th>Age</th>
+       <th>Sex</th>
+       <th>Weight</th>
+       <th>Height</th>
+       <th>Bmi</th>
+       <th >Children</th>
+       <th>Smoker</th>
+       <th>Region</th>
+       <th>Charges</th>
+       <th>Telephone Num</th>
+       <th>Address</th>
+       <th class ="th1"> Delete Edit</th>
 
-    </tr>
+   </tr>
 
-    </thead>
-    <tbody>
+   </thead>
+   <tbody>
 <!--    .object_list-->
-     {% for item in personal_info%}
-        <tr>
-            <td >{{item.id}}</td>
-            <td >{{item.name}}</td>
-            <td >{{item.age}}</td>
-            <td>{{item.sex}}</td>
-            <td>{{item.weight}}</td>
-            <td>{{item.height}}</td>
-            <td>{{item.bmi}}</td>
-            <td>{{item.children}}</td>
-            <td>{{item.smoker}}</td>
-            <td>{{item.region}}</td>
-            <td>{{item.charges|floatformat:2 }}</td>
-            <td>{{item.telephone_no}}</td>
-            <td>{{item.email}}</td>
-            <td>
-             <form action="delete/{{ item.id }}/" method="POST">
-                  <button class="delete-btn btn-floating  waves-effect waves-light red" onclick="return confirm('Are you sure you want to delete patient with AMKA {{item.id}}?')" ><i class="material-icons" >delete</i></button>
-             </form>
-                 <form action="/update/{{ item.id }}/" method="get">
-             <button class="edit-btn btn-floating  waves-effect waves-light"><i class="material-icons">edit</i></button>
-             </form>
+    {% for item in personal_info%}
+       <tr>
+           <td >{{item.id}}</td>
+           <td >{{item.name}}</td>
+           <td >{{item.age}}</td>
+           <td>{{item.sex}}</td>
+           <td>{{item.weight}}</td>
+           <td>{{item.height}}</td>
+           <td>{{item.bmi}}</td>
+           <td>{{item.children}}</td>
+           <td>{{item.smoker}}</td>
+           <td>{{item.region}}</td>
+           <td>{{item.charges|floatformat:2 }}</td>
+           <td>{{item.telephone_no}}</td>
+           <td>{{item.email}}</td>
+           <td>
+            <form action="delete/{{ item.id }}/" method="POST">
+                 <button class="delete-btn btn-floating  waves-effect waves-light red" onclick="return confirm('Are you sure you want to delete patient with AMKA {{item.id}}?')" ><i class="material-icons" >delete</i></button>
+            </form>
+                <form action="/update/{{ item.id }}/" method="get">
+            <button class="edit-btn btn-floating  waves-effect waves-light"><i class="material-icons">edit</i></button>
+            </form>
 
-             </td>
+            </td>
 
-        </tr>
-    {% endfor %}
-      <div class="pagination right">
-    <ul>
-    {% if personal_info.has_previous %}
-   <li class="waves-effect"><a href="?page=1"><i class="material-icons">first_page</i></a></li>
-          <li class="waves-effect"> <a href="?page={{ personal_info.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
-    {% endif %}
-     {% for num in personal_info.paginator.page_range%}
-     {% if personal_info.number == num %}
+       </tr>
+   {% endfor %}
+   <div class="pagination right">
+   <ul>
+   {% if personal_info.has_previous %}
+  <li class="waves-effect"><a href="?page=1"><i class="material-icons">first_page</i></a></li>
+         <li class="waves-effect"> <a href="?page={{ personal_info.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+   {% endif %}
+    {% for num in personal_info.paginator.page_range%}
+    {% if personal_info.number == num %}
 <!--            <strong>{{ num }}</strong>-->
-    <li class="active ac1"><a href="?page={{num}}">{{num}}</a></li>
+   <li class="active ac1"><a href="?page={{num}}">{{num}}</a></li>
 
-     {% elif num > personal_info.number|add:'-5' and num < personal_info.number|add:'5' %}
-            <li class="waves-effect"><a href="?page={{num}}">{{num}}</a></li>
-            {% endif %}
-     {% endfor %}
-    {% if personal_info.has_next %}
-            <li class="waves-effect"><a href="?page={{ personal_info.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
-            <li class="waves-effect"><a href="?page={{ personal_info.paginator.num_pages }}"><i class="material-icons">last_page</i></a></li>
-        {% endif %}
-        </ul>
-</div></br>
-      </tbody>
+    {% elif num > personal_info.number|add:'-5' and num < personal_info.number|add:'5' %}
+           <li class="waves-effect"><a href="?page={{num}}">{{num}}</a></li>
+           {% endif %}
+    {% endfor %}
+   {% if personal_info.has_next %}
+           <li class="waves-effect"><a href="?page={{ personal_info.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+           <li class="waves-effect"><a href="?page={{ personal_info.paginator.num_pages }}"><i class="material-icons">last_page</i></a></li>
+       {% endif %}
+       </ul>
+   </div></br>
+     </tbody>
 
 <button class="myBtn" onclick="topFunction()" id="myBtn" title="Go to top"><i class="material-icons">arrow_upward</i></button>
-</table>
+</table></div>
 
 
 
 <div class="pagination right">
-    <ul>
-    {% if personal_info.has_previous %}
-   <li class="waves-effect"><a href="?page=1"><i class="material-icons">first_page</i></a></li>
-          <li class="waves-effect"> <a href="?page={{ personal_info.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
-    {% endif %}
-     {% for num in personal_info.paginator.page_range%}
-     {% if personal_info.number == num %}
+   <ul>
+   {% if personal_info.has_previous %}
+  <li class="waves-effect"><a href="?page=1"><i class="material-icons">first_page</i></a></li>
+         <li class="waves-effect"> <a href="?page={{ personal_info.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+   {% endif %}
+    {% for num in personal_info.paginator.page_range%}
+    {% if personal_info.number == num %}
 <!--            <strong>{{ num }}</strong>-->
-    <li class="active ac1"><a href="?page={{num}}">{{num}}</a></li>
+   <li class="active ac1"><a href="?page={{num}}">{{num}}</a></li>
 
-     {% elif num > personal_info.number|add:'-5' and num < personal_info.number|add:'5' %}
-            <li class="waves-effect"><a href="?page={{num}}">{{num}}</a></li>
-            {% endif %}
-     {% endfor %}
-    {% if personal_info.has_next %}
-            <li class="waves-effect"><a href="?page={{ personal_info.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
-            <li class="waves-effect"><a href="?page={{ personal_info.paginator.num_pages }}"><i class="material-icons">last_page</i></a></li>
-        {% endif %}
-        </ul>
+    {% elif num > personal_info.number|add:'-5' and num < personal_info.number|add:'5' %}
+           <li class="waves-effect"><a href="?page={{num}}">{{num}}</a></li>
+           {% endif %}
+    {% endfor %}
+   {% if personal_info.has_next %}
+           <li class="waves-effect"><a href="?page={{ personal_info.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+           <li class="waves-effect"><a href="?page={{ personal_info.paginator.num_pages }}"><i class="material-icons">last_page</i></a></li>
+       {% endif %}
+       </ul>
 </div>
 {% endblock content %}
+
