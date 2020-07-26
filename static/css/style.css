@@ -44,8 +44,6 @@ h2 {           /* <h2>hello there , is everything ok?</h2>*/
 }
 
 h3 {
- font-family: consolas;
-
 color: black !important;
  /*border-width: 20px;*/
 }
@@ -90,10 +88,10 @@ color: black !important;
 
 }
 /* tags in slider */
-.grey-text{
-position: absolute; /*or fixed*/
-   left: 16cm;
-}
+/*.grey-text{*/
+/* position: absolute; or fixed*/
+/*    left: 16cm;*/
+/*}*/
 
 /* titles in view all*/
 
