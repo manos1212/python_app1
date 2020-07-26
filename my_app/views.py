@@ -284,6 +284,7 @@ def plots(request):
    ttl.set_position([.5, 1.05])
 
    fig = plt.gcf()
+   fig.set_size_inches(8.5, 5.5)
    buf = io.BytesIO()
    fig.savefig(buf, format='png')
    buf.seek(0)
@@ -340,7 +341,7 @@ def plot_total_dose_per_year():
        if v==total_dose_prev_year:
            v = round(v, 3)
            ax.text(v + 3, i, " " + str(v), color='#096daa', fontweight='bold')
-           ax.text( v,i, "                              - Diff from year 2018:  "+ str(f_perc) + "%", color='#e57373', fontweight='bold')
+           ax.text( v,i, "                   * Diff from year 2018:  "+ str(f_perc) + "%", color='#e57373', fontweight='bold', fontsize='x-large')
 
        else:
            v=round(v,3)
@@ -1107,5 +1108,4 @@ def prev_year_pdf(request):
    # uris = urllib.parse.quote(string)
    # plt.close()
    # return uris
-
 
