@@ -213,7 +213,6 @@ position: absolute; /*or fixed*/
 }
 
 .slider{
-
  min-width: 350px!important;
  height:340px!important;
 
@@ -325,7 +324,18 @@ td{
  background-color: #0277bd!important;
 }
 .menu-btn:hover{
-  background-color: #096daa !important;
+  /*margin-top:1.5px;!important;*/
+  margin: 0px!important;
+  margin-top: 1.5px!important;
+  /*padding-top:0px!important;*/
+  padding: 0px!important;
+  /*text-align: center;!important;*/
+  /*border:0px solid #0277bd !important;*/
+ height: 60px!important;
+ width:60px!important;
+ background-color: #4c91c4 !important;
+ opacity: 80% !important;
+ border-radius: 40px!important;
 }
 
 .hamburger{
@@ -337,20 +347,29 @@ td{
 }
 
 .main-nav {
-
  min-width: 350px !important;
+ height: 64px!important;
 }
 .search-icon{
  /*position: absolute;*/
- top:3px!important;
+ /*top:3px!important;*/
  color: white!important;
- left:3px!important;
- border:0!important;
+ /*left:3px!important;*/
+ /*border:0!important;*/
  font-size: 30px!important;
 }
 
 .search-icon:hover{
- background-color: #096daa !important;
+ /*border: 0px solid #0277bd !important;*/
+ padding: 0px!important;
+ padding-top: 2px!important;
+ margin:0px!important;
+ margin-top: 1.5px!important;
+ height: 60px!important;
+ width:60px!important;
+ background-color: #4c91c4 !important;
+ opacity: 80% !important;
+ border-radius: 30px!important;
 }
 
 /*searchbutton in top navbar*/
@@ -389,6 +408,7 @@ border:1px solid white!important;
   /*z-index: 20!important;*/
   background-color: #7aa6c7 !important;
   opacity:0.75 !important;
+  height: 100% !important;
 
 
   /*border: whitesmoke 1px solid!important; #7cbbef*/
@@ -413,8 +433,8 @@ border:1px solid white!important;
   text-align: left!important;
   border: 1px solid whitesmoke!important;
   border-radius: 30px!important;
-  width: 180px!important;
-  margin-top: 13px!important;
+  width: 170px!important;
+  margin-top: -30px!important;
   margin-left: 55px!important;
   /*left:30px!important;*/
   /*position: absolute;!important;*/
@@ -457,7 +477,7 @@ border:1px solid white!important;
 .schd-app{
  cursor: default!important;
  position: absolute;!important;
- top:515px!important;
+ top:480px!important;
  left:83px!important;
  color:black!important;
  font-size: 13.5px!important;
@@ -477,11 +497,20 @@ border:1px solid white!important;
  margin-top: 50px!important;
  border:1px solid #0277bd !important;
  border-radius: 20px!important;
+ width: 110%!important;
+ height:auto!important;
+}
+.plots-ages{
+ margin-top: 50px!important;
+ border:1px solid #0277bd !important;
+ border-radius: 20px!important;
+ width: 80% !important;
+ height:80%!important;
 }
 /* dropdown button */
 .dropdown-button.drop-btn{
- margin-top: 11px!important;
- margin-left:211px!important;
+ margin-top: 9.5px!important;
+ /*margin-left:211px!important;*/
  color:#ef9a9a!important;
  background: none;
  text-align: center!important;
@@ -514,7 +543,7 @@ ul.tabs .tab a:visited{
 .tabs{
  /*background:black!important;*/
  margin-top: 10px!important;
- left:220px!important;
+ /*left:220px!important;*/
 }
 
 /*buttons in Dose dropdown menu */
@@ -572,4 +601,12 @@ ul.dropdown-content .tab a{
  border-radius: 15px !important;
  text-align: center;
 }
+.plots-resp img{
+ width:auto;
+ height:auto;
+}
+/*.dropdown-content{*/
+/*  float: left;!important;*/
+/*  overflow: hidden;!important;*/
+/*}*/
 
