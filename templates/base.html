@@ -17,19 +17,19 @@
 <body>
 
 <nav class="main-nav #0277bd light-blue darken-3">
-   <div class="row">
+   <div class="row" style="margin: 0">
         <div class="hamburger col s1 m1 l1 left">
       <button href="#" data-target="slide-out" class="menu-btn sidenav-trigger"><i class="material-icons">menu</i></button></div>
       <div class="col s2 m3 l3 hide-on-med-and-down"> <a href="/" class="brand-logo" ><i class="material-icons">local_hospital</i>HealthMed</a></div>
 
-          <div class="col s7 m5 l5" style="margin-left:20px;text-align: right">
+          <div class="col s8 m9 l5" style="margin-left:50px; margin-top:2px;text-align: right">
               <form method="POST" action="/add-pat/">
                   {% csrf_token %}
                    <div class="col s10 m10 l10">
-                   <input type="text" class="search-bt" style="text-align:center" id="checkbox" name="checkbox" placeholder="Search by AMKA..." value="{{form.initial.id}}" onfocus="this.value=''" required>
+                   <input type="text" class="search-bt" style="text-align:center;margin: 0px;" id="checkbox" name="checkbox" placeholder="Search by AMKA..." value="{{form.initial.id}}" onfocus="this.value=''" required>
                    </div>
                    <div class="col" style="margin-left:12px ">
-                   <button id="search_submit" type="submit" class="search-btn"><i class="search-icon material-icons" >search</i>
+                   <button id="search_submit" type="submit" class="search-btn hide-on-small-only"><i class="search-icon material-icons" >search</i>
                    </button>
                    </div>
            </form></div>
@@ -39,11 +39,9 @@
            </canvas></div>
 
    </div>
-
-
 </nav>
 <div id="main">
-   <ul id="slide-out" class="sidenav sidenav1 right">
+   <ul id="slide-out" class="sidenav sidenav1">
    <li><div class="user-view">
      <a href="/"><img class="circle" src="https://www.pngrepo.com/download/240405/secretary.png"></a>
      <a href="/"><span class="white-text name">Amanda Collins</span></a>
@@ -52,17 +50,18 @@
    </div></li></br>
         <li><a href="/add/" class="navbt"><i class="material-icons" >add</i>New Patient</a></li>
        <li class="divider" tabindex="-1"></li>
-       <li><a href="/viewappoints/" class="navbt" ><i class="material-icons">date_range</i>View All Appointments</a></li>
+       <li><a href="/viewappoints/" class="navbt" ><i class="material-icons">date_range</i>View All App/ments</a></li>
        <li class="divider" tabindex="-1"></li>
        <li><a href="/view/" class="navbt"><i class="material-icons">view_module</i>View All Patients</a></li>
        <li class="divider" tabindex="-1"></li>
        <li><a href="/plots/" class="navbt"><i class="material-icons">insert_chart</i>View Statistics</a></li>
        <li class="divider" tabindex="-1"></li>
       <li class="schd-app"><i class="schedule-icon material-icons">schedule</i> Schedule Appointment</li>
-       </br>  </br>  </br>   <div><li class="divider" tabindex="-1"></li></div>
-
-          <form method="POST" action="/add-pat/">{% csrf_token %}
-           <div class="navgroup col s2 m2 l3 " >
+       </br>  </br>  </br></br>
+<!--        <div><li class="divider" tabindex="-1"></li></div>-->
+          <form method="POST" action="/add-pat/">
+              {% csrf_token %}
+           <div class="navgroup col s12" >
 
          <input type="text" class="search_nav_input form-control " style="width: 100px" placeholder="Enter Amka..." name="checkbox" id="srch-term"  value="{{form.initial.id}}" onfocus="this.value=''" required>
           <button class="nav-search-btn btn-default" type="submit"><i class="nav-search-icon material-icons">search</i></button>
@@ -122,9 +121,9 @@
 
 <div class="container">
 {% block content %}
- <div class="row" style="margin-left: 50px">
-   <div class="col s12 m4 l4">
-     <div class="card">
+ <div class="row">
+   <div class="col s12 m6 l4">
+     <div class="card" style=" margin: 0 auto" >
 <!--          <div class="card-content">-->
           </br><h5 align="center" style="padding-right: 4px"><i class="material-icons" style="font-size: 19px">insert_invitation &nbsp</i>Next Availability</h5></br>
       <h6 class ="date-card" align="center">{{date}}</h6>
@@ -133,8 +132,8 @@
        </div>
      </div>
    </div>
-     <div class="col s12 m4 l4">
-     <div class="card">
+     <div class="col s12 m6 l4">
+     <div class="card" style=" margin: 0 auto">
 <!--          <div class="card-content">-->
           </br><h5 align="center" style="margin-right: 10px"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ7diVQhhE59r-d1RQqQmohJ9yTTgVXzz1gyw&usqp=CAU" style="height:18px;width:18px" align="center">&nbsp Tomorrow's Dose</h5></br>
       <h6 class ="date-card" align="center">{{dose|floatformat:3}} MBq</h6>
@@ -143,8 +142,8 @@
        </div>
      </div>
    </div>
-     <div class="col s12 m4 l4">
-     <div class="card">
+     <div class="col s12 m12 l4">
+     <div class="card" style=" margin: 0 auto" >
 <!--          <div class="card-content">-->
           </br><h5 align="center"><img src="https://image.flaticon.com/icons/png/512/343/343094.png" style="height:18px;width:18px" >&nbspCurrent year Avg Bmi</h5></br>
       <h6 class ="date-card" align="center">{{avg_bmi|floatformat:3}}</h6>
@@ -354,14 +353,14 @@ $(document).ready(function() {
  $('.dropdown-button').dropdown();
 
 </script>
-<script>
- document.addEventListener('DOMContentLoaded', function() {
-   var elems = document.querySelectorAll('.fixed-action-btn');
-   var instances = M.FloatingActionButton.init(elems, {
-     direction: 'top'
-   });
- });
-</script>
+<!--<script>-->
+<!--  document.addEventListener('DOMContentLoaded', function() {-->
+<!--    var elems = document.querySelectorAll('.fixed-action-btn');-->
+<!--    var instances = M.FloatingActionButton.init(elems, {-->
+<!--      direction: 'top'-->
+<!--    });-->
+<!--  });-->
+<!--</script>-->
 
 <script>
 var canvas = document.getElementById("canvas");
