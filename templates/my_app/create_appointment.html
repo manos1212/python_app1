@@ -3,58 +3,59 @@
 {% block content %}
 
 <div class="container">
-    <div class="wrapper">
-        <h4>Book Appointment</h4>
-    </div>
-    <div class="contact-form medium-padding120">
-        <div class="row">
-            <form action="" method="post" class="contact-form">
-                {% csrf_token%}
-                <div class="row">
-                    <div class="col l6 col m6 col s12 col s12">
-                        <label class="d1">Amka<input name="amka" type="text" maxlength="30" size="50"
-                                                     class="input-standard-grey" placeholder="Amka"
-                                                     value="{{form.initial.id}}" style="cursor: not-allowed"  readonly="readonly">
-                        </label></div>
-
-                    <div class="col l6 col m6 col s12 col s12">
-                        <label class="d1">Weight<input name="weight" id="weight" type="number" min="40" max="200"step="0.01"
-                                                    class="input1 input-standard-grey" placeholder="Weight"
-                                                    value={{form.initial.weight}} style="cursor: not-allowed" readonly="readonly"></label></div>
-
-                </div>
-                <div class="row">
-                    <div class="col l6 col m6 col s12 col s12">
-                        <label class="d1">Bmi<input name="bmi" id="bmi" type="text" class="input-standard-grey bmi" placeholder="Bmi" value="{{form.initial.bmi}}" style="cursor: not-allowed"  readonly="readonly" required>
-                        </label></div>
-                    <div class="col l6 col m6 col s12 col s12">
-                        <label class="d1">Dose<input name="dose" id="dose" type="text" class="input-standard-grey" placeholder="Dose" readonly="readonly" style="cursor: not-allowed"  required>
-                        </label></div>
-                </div>
-                <div class="row">
-                    <div class="col l6 col m6 col s12">
-<!--                        min="17" max="60" step="0.001"-->
-                       <label class="d1">Appointment Date/Time<div id="date_update"><input  name="date_time" id="date_time" type="text"
-                                                   class="input2 input-standard-grey" placeholder="Date/Time" value="{{appoint_date}}" style="cursor: not-allowed" readonly="readonly"  required></div>
+   <div class="wrapper">
+       <h4>Book Appointment</h4>
+   </div>
+   <div class="contact-form medium-padding120">
+       <div class="row">
+           <form  id="BookForm" action="/createappoint/{{form.initial.id}}" method="post" class="contact-form">
+               {% csrf_token%}
+               <div class="row">
+                   <div class="col s12 m6 l6">
+                       <label class="d1">Amka<input name="amka" type="text" maxlength="30" size="50"
+                                                    class="input-standard-grey" placeholder="Amka"
+                                                    value="{{form.initial.id}}" style="cursor: not-allowed"  readonly="readonly">
                        </label></div>
 
-                    <div class="col l6 col m6 col s12 col s12">
+                   <div class="col s12 m6 l6">
+                       <label class="d1">Weight<input name="weight" id="weight" type="number" min="40" max="200"step="0.01"
+                                                   class="input1 input-standard-grey" placeholder="Weight"
+                                                   value={{form.initial.weight}} style="cursor: not-allowed" readonly="readonly">
+<!--                            <small class="left" style="margin-bottom: -12px; margin-top: -5px" >* Important Field</small>-->
+                       </label></div>
 
-                        <label class="d1"><input name="height" id="height" type="text"
-                                                    class="input1 input-standard-grey" placeholder="Height" value={{form.initial.height}} hidden disabled>
-                        </label></div>
+               </div>
+               <div class="row">
+                   <div class="col s12 m6 l6">
+                       <label class="d1">Bmi<input name="bmi" id="bmi" type="text" class="input-standard-grey bmi" placeholder="Bmi" value="{{form.initial.bmi}}" style="cursor: not-allowed"  readonly="readonly" required>
+                       </label></div>
+                   <div class="col s12 m6 l6">
+                       <label class="d1">Dose<input name="dose" id="dose" type="text" class="input-standard-grey" placeholder="Dose" readonly="readonly" style="cursor: not-allowed"  required>
+                       </label></div>
+               </div>
+               <div class="row">
+                   <div  class="col s12 m6 l6">
+<!--                        min="17" max="60" step="0.001"-->
+                       <label class="d1">Appointment Date/Time<div  id="date_update"><input name="date_time" id="date_time" type="text"
+                                                   class="input2 input-standard-grey" placeholder="Date/Time" value="{{appoint_date}}" style="cursor: not-allowed" readonly="readonly"  required></div>
+                       </label></div>
+                   <div class="col s12 m6 l6">
 
-                </div>
+                       <label class="d1"><input name="height" id="height" type="text"
+                                                   class="input1 input-standard-grey" placeholder="Height" value={{form.initial.height}} hidden disabled>
+                       </label></div>
 
-                <div class="col l3 col m3 col s6 col s6">
-                    <button id="book" class="add-btn waves-effect waves-yellow btn">Book</button>
-                </div>
-            </form>
-<div style="float: right" >
-       <button id="back" class="back-btn waves-effect waves-red btn" style="right: 10px" onclick="goBack()">Back</button>
+               </div>
+                   <div class="col s12 m6 l6" style="text-align: center">
+                           <button id="book" class="add-btn waves-effect waves-yellow btn">Book</button>
+                   </div>
+
+           </form>
+           <div class="col s12 m6 l6" style="text-align: center">
+                   <button id="back" class="back-btn waves-effect waves-red btn"  onclick="goBack()">Back</button>
+               </div>
+       </div>
    </div>
-
-        </div>
-    </div>
 </div>
 {% endblock content %}
+
