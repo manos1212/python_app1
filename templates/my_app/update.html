@@ -119,10 +119,10 @@
                        </label>
                    </div>
                </div>
-               <div class="col l3 col m3 col s6 col s6">
+               <div class="col s12  m4  l4" style="text-align:center">
                    <button class="add-btn waves-effect waves-yellow btn" name="Sub">Save Changes</button>
                </div>
-               <div class="col l3 col m3 col s6 col s6" >
+               <div class="col s12  m4  l4" style="text-align:center">
                    <button class="update-schedule-appoint waves-effect waves-yellow btn" name="App">
                        Save & Schedule Appoint
                    </button>
@@ -131,7 +131,7 @@
 
            <form action="/view/delete/{{p_id}}/" method="POST">
                {% csrf_token%}
-               <div style="float:right">
+               <div class="col s12 m4 l4" style="text-align:center">
                    <button class="del-pat waves-effect waves-purple btn" name="DelUpd"
                            onclick="return confirm('Are you sure you want to delete patient with AMKA {{p_id}}?')">
                        Delete Patient
