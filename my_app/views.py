@@ -18,7 +18,10 @@ import joypy
 import seaborn as sns
 import csv
 from my_app.pdfs import NextDayPrint, PrevYearPrint
+from django.conf import settings
+from django.core.mail import send_mail
 matplotlib.use('Agg')
+
 
 
 def home(request):
@@ -163,6 +166,8 @@ def view_all_appoints(request):
 
 def create_appoint(request, p_id):  # ,appoint_date
    patient = Personal_information.objects.get(id=p_id)
+   email=patient.email
+   name=patient.name
    form = Createform(request.POST or None, instance=patient)
    appoint_form = Create_appoint_form (request.POST or None)
    date1, a = check_availability() # Unpacking return values from method checkavilability which are 2,date1= date and  a=latest_dt
@@ -176,8 +181,12 @@ def create_appoint(request, p_id):  # ,appoint_date
        context = {"form": form, "appoint_date": date,"p_id":p_id, "clock":datetime.now()}
        if request.method == "POST":
            if appoint_form.is_valid():
-
                appoint_form.save()
+               subject="Appointment Confirmation"
+               message=f"Dear Mr/Mrs {name},\n\nWe would like to inform you that your appointment with HealthMed is scheduled for:\n{date1}\n\nThank you!"
+               from_email = f"HealthMed <{settings.EMAIL_HOST_USER}>"
+               to_list=[email]
+               send_mail(subject, message, from_email, to_list, fail_silently=False)
                messages.success(request, f'Appointment for patient {p_id} booked for {date}!')
                return redirect("/update/" + f"{p_id}" + "#history")
            else:
@@ -1108,4 +1117,5 @@ def prev_year_pdf(request):
    # uris = urllib.parse.quote(string)
    # plt.close()
    # return uris
+
 
