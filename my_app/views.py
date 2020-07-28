@@ -183,7 +183,7 @@ def create_appoint(request, p_id):  # ,appoint_date
            if appoint_form.is_valid():
                appoint_form.save()
                subject="Appointment Confirmation"
-               message=f"Dear Mr/Mrs {name},\n\nWe would like to inform you that your appointment with HealthMed is scheduled for:\n{date1}\n\nThank you!"
+               message=f"Dear Mr/Mrs {name},\n\nWe would like to inform you that your appointment with HealthMed has been scheduled for:\n{date1}\n\nThank you!"
                from_email = f"HealthMed <{settings.EMAIL_HOST_USER}>"
                to_list=[email]
                send_mail(subject, message, from_email, to_list, fail_silently=True)
