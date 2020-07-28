@@ -186,7 +186,7 @@ def create_appoint(request, p_id):  # ,appoint_date
                message=f"Dear Mr/Mrs {name},\n\nWe would like to inform you that your appointment with HealthMed is scheduled for:\n{date1}\n\nThank you!"
                from_email = f"HealthMed <{settings.EMAIL_HOST_USER}>"
                to_list=[email]
-               send_mail(subject, message, from_email, to_list, fail_silently=False)
+               send_mail(subject, message, from_email, to_list, fail_silently=True)
                messages.success(request, f'Appointment for patient {p_id} booked for {date}!')
                return redirect("/update/" + f"{p_id}" + "#history")
            else:
