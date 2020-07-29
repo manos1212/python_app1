@@ -323,10 +323,10 @@ background-color: #0277bd!important;
 }
 .menu-btn:hover{
  /*margin-top:1.5px;!important;*/
- margin: 0px!important;
+ /*margin: 0px!important;*/
  margin-top: 1.5px!important;
  /*padding-top:0px!important;*/
- padding: 0px!important;
+ /*padding: 0px!important;*/
  /*text-align: center;!important;*/
  /*border:0px solid #0277bd !important;*/
 height: 60px!important;
@@ -340,7 +340,7 @@ border-radius: 40px!important;
  /*position: fixed !important;*/
  /*padding-right: 5px;*/
  /*float: right!important;*/
-  margin-left:20px!important;
+ /* margin-left:20px!important;*/
  /*left:20px!important;*/
 }
 
