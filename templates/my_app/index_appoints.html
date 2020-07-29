@@ -1,17 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
+<h4 >Appointments' Info</h4>
+<div class="pagination right">
+   <ul style="margin-left: 10px">
+   {% if appoint_info.has_previous %}
+  <li class="waves-effect"><a href="?page=1"><i class="material-icons">first_page</i></a></li>
+         <li class="waves-effect"> <a href="?page={{ appoint_info.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+   {% endif %}
+    {% for num in appoint_info.paginator.page_range%}
+    {% if appoint_info.number == num %}
+<!--            <strong>{{ num }}</strong>-->
+   <li class="active ac1"><a href="?page={{num}}">{{num}}</a></li>
 
+    {% elif num > appoint_info.number|add:'-5' and num < appoint_info.number|add:'5' %}
+           <li class="waves-effect"><a href="?page={{num}}">{{num}}</a></li>
+           {% endif %}
+    {% endfor %}
+   {% if appoint_info.has_next %}
+           <li class="waves-effect"><a href="?page={{ appoint_info.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+           <li class="waves-effect"><a href="?page={{ appoint_info.paginator.num_pages }}"><i class="material-icons">last_page</i></a></li>
+       {% endif %}
+       </ul>
+</div></br>
 <section id="view_appoints_top">
+   <div class="row">
    <div class="col s12 center" style="overflow:auto;">
    <table class="highlight">
-
-
-       <tr>
-               <h4 >Appointments' Info</h4>
-
-       </tr>
-
 
 <thead>
    <tr class="table1" >
@@ -44,34 +59,13 @@
 
        </tr>
    {% endfor %}
-   <div class="pagination right">
-   <ul>
-   {% if appoint_info.has_previous %}
-  <li class="waves-effect"><a href="?page=1"><i class="material-icons">first_page</i></a></li>
-         <li class="waves-effect"> <a href="?page={{ appoint_info.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
-   {% endif %}
-    {% for num in appoint_info.paginator.page_range%}
-    {% if appoint_info.number == num %}
-<!--            <strong>{{ num }}</strong>-->
-   <li class="active ac1"><a href="?page={{num}}">{{num}}</a></li>
-
-    {% elif num > appoint_info.number|add:'-5' and num < appoint_info.number|add:'5' %}
-           <li class="waves-effect"><a href="?page={{num}}">{{num}}</a></li>
-           {% endif %}
-    {% endfor %}
-   {% if appoint_info.has_next %}
-           <li class="waves-effect"><a href="?page={{ appoint_info.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
-           <li class="waves-effect"><a href="?page={{ appoint_info.paginator.num_pages }}"><i class="material-icons">last_page</i></a></li>
-       {% endif %}
-       </ul>
-</div></br>
 
      </tbody>
 <button class="myBtn" onclick="topFunction()" id="myBtn" title="Go to top"><i class="material-icons">arrow_upward</i></button>
-</table>
+</table></div></div></section>
 <!--    </br>-->
    <div class="pagination right">
-   <ul>
+   <ul style="margin-left: 10px">
    {% if appoint_info.has_previous %}
   <li class="waves-effect"><a href="?page=1"><i class="material-icons">first_page</i></a></li>
          <li class="waves-effect"> <a href="?page={{ appoint_info.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
@@ -90,6 +84,6 @@
            <li class="waves-effect"><a href="?page={{ appoint_info.paginator.num_pages }}"><i class="material-icons">last_page</i></a></li>
        {% endif %}
        </ul>
-</div></div></section>
+</div>
 {% endblock content %}
 
